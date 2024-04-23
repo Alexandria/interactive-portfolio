@@ -1,0 +1,96 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "exportAsImage.useCurrentScale": false,
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "basic-floors.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "basic-wall-edges.tsx": {
+            "scaleInEditor": 1
+        },
+        "basic-wallpapper.tsx": {
+            "scaleInEditor": 1
+        },
+        "basic-wallpappers.tmx": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 260.25,
+                "y": 142.5
+            }
+        },
+        "basic-wallpappers.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "basics-wallpapers.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 2
+        },
+        "char_walk-sheet.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "char_walk.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "character.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "cozy_room.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1.5
+        },
+        "room.tmx": {
+            "scale": 3,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 182.66666666666669,
+                "y": 47.33333333333333
+            }
+        }
+    },
+    "last.exportedFilePath": "C:/Users/Lex/Documents/GitHub/portfolioProjects/interactive-portfolio/public/tiles",
+    "last.imagePath": "C:/Users/Lex/Documents/Portfolio/adventure-portfolio/assets/Interior full/interior full/furniture",
+    "map.height": 16,
+    "map.lastUsedExportFilter": "All Files (*)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 16,
+    "openFiles": [
+    ],
+    "project": "room.tiled-project",
+    "property.type": "bool",
+    "recentFiles": [
+        "basic-wallpapper.tsx",
+        "char_walk.tsx",
+        "char_walk-sheet.tsx",
+        "basic-wall-edges.tsx",
+        "character.tsx",
+        "basic-floors.tsx",
+        "basic-wallpappers.tsx",
+        "basic-wallpappers.tmx",
+        "basics-wallpapers.tsx",
+        "cozy_room.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
