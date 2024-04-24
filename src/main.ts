@@ -9,18 +9,18 @@ import Game from "./scenes/Game";
 // https://www.emanueleferonato.com/2018/02/16/how-to-scale-your-html5-games-if-your-framework-does-not-feature-a-scale-manager-or-if-you-do-not-use-any-framework/
 
 const config: Phaser.Types.Core.GameConfig = {
-  type: Phaser.CANVAS,
+  type: Phaser.AUTO,
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: 1000,
-    height: 350,
+    width: 464,
+    height: 200,
   },
+  backgroundColor: "#fff7e4",
   pixelArt: true, // Makes the pixel art have clear resolution
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { x: 0, y: 0 },
       debug: true,
     },
   },

@@ -13,14 +13,24 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "C:/Users/Lex/Documents/Tiled/testroom.tmj": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 40.83333333333333,
+                "y": 112.16666666666666
+            }
+        },
         "basic-floors.tsx": {
-            "scaleInDock": 1,
+            "scaleInDock": 2,
             "scaleInEditor": 1
         },
         "basic-wall-edges.tsx": {
+            "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "basic-wallpapper.tsx": {
+            "scaleInDock": 2,
             "scaleInEditor": 1
         },
         "basic-wallpappers.tmx": {
@@ -55,20 +65,45 @@
             "scaleInDock": 1,
             "scaleInEditor": 1.5
         },
+        "decorations.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        },
+        "room.tmj": {
+            "scale": 4,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 40.375,
+                "y": 77.125
+            }
+        },
+        "room.tmj#basic-floors": {
+            "scaleInDock": 1
+        },
+        "room.tmj#basic-wall-edges": {
+            "scaleInDock": 1
+        },
+        "room.tmj#basic-wallpapper": {
+            "scaleInDock": 1
+        },
         "room.tmx": {
             "scale": 3,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 182.66666666666669,
-                "y": 47.33333333333333
+                "x": 196,
+                "y": 95.83333333333334
             }
+        },
+        "storage.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         }
     },
     "last.exportedFilePath": "C:/Users/Lex/Documents/GitHub/portfolioProjects/interactive-portfolio/public/tiles",
-    "last.imagePath": "C:/Users/Lex/Documents/Portfolio/adventure-portfolio/assets/Interior full/interior full/furniture",
+    "last.imagePath": "C:/Users/Lex/Documents/Portfolio/adventure-portfolio/assets/Character v.2/Character v.2",
     "map.height": 16,
-    "map.lastUsedExportFilter": "All Files (*)",
-    "map.lastUsedFormat": "tmx",
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "json",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "map.width": 16,
@@ -77,16 +112,18 @@
     "project": "room.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "decorations.tsx",
+        "C:/Users/Lex/Documents/Tiled/testroom.tmj",
+        "storage.tsx",
+        "character.tsx",
+        "basic-floors.tsx",
+        "basic-wall-edges.tsx",
         "basic-wallpapper.tsx",
         "char_walk.tsx",
         "char_walk-sheet.tsx",
-        "basic-wall-edges.tsx",
-        "character.tsx",
-        "basic-floors.tsx",
         "basic-wallpappers.tsx",
         "basic-wallpappers.tmx",
-        "basics-wallpapers.tsx",
-        "cozy_room.tsx"
+        "basics-wallpapers.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
