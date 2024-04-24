@@ -61,7 +61,8 @@ export default class Game extends Phaser.Scene {
     // });
 
     this.physics.add.collider(this.player, walls);
-
+    cam.setBounds(110, 110, 470, 128);
+    cam.setViewport(0, 0, 150, 150);
     //cam.zoom = 0.3;
   }
 
