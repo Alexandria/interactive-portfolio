@@ -13,8 +13,8 @@ const config: Phaser.Types.Core.GameConfig = {
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: 464,
-    height: 200,
+    width: 1280,
+    height: 720,
   },
   backgroundColor: "#fff7e4",
   pixelArt: true, // Makes the pixel art have clear resolution

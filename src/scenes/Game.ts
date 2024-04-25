@@ -4,6 +4,7 @@ import Phaser from "phaser";
 export default class Game extends Phaser.Scene {
   private player: Phaser.Physics.Arcade.Sprite;
   private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
+  private speed = 500;
   constructor() {
     // https://stackoverflow.com/questions/52864250/what-is-the-function-of-super-in-phaser-frameworks
     super("game");
@@ -12,6 +13,7 @@ export default class Game extends Phaser.Scene {
   preload() {}
 
   create() {
+    const scale = 4;
     const map = this.make.tilemap({ key: "tileMap" });
     const wallTileset = map.addTilesetImage("basic-wallpapper", "wallTiles")!;
     const edgeTileset = map.addTilesetImage("basic-wall-edges", "edgeTiles")!;
@@ -30,12 +32,15 @@ export default class Game extends Phaser.Scene {
       [decorTileSet, storageTileSet],
       100,
       110,
-    );
+    )!;
     const floor = map.createLayer("ground", floorTileSet, 100, 110)!;
+    walls.scale = scale;
+    decor.scale = scale;
+    floor.scale = scale;
 
     walls.setCollisionByProperty({ collides: true });
 
-    this.player = this.physics.add.sprite(188, 195, "character");
+    this.player = this.physics.add.sprite(1088, 440, "character");
     this.player.anims.createFromAseprite("character", [
       "front",
       "back",
@@ -48,7 +53,7 @@ export default class Game extends Phaser.Scene {
     );
     this.player.body!.offset.y = 22;
 
-    // this.player.scale = 4;
+    this.player.scale = scale;
     this.cursors = this.input.keyboard?.createCursorKeys();
     const cam = this.cameras.main;
     cam.startFollow(this.player);
@@ -61,8 +66,8 @@ export default class Game extends Phaser.Scene {
     // });
 
     this.physics.add.collider(this.player, walls);
-    cam.setBounds(110, 110, 470, 128);
-    cam.setViewport(0, 0, 150, 150);
+    cam.setBounds(110, 110, 1900, 720);
+    cam.setViewport(0, 0, 500, 500);
     //cam.zoom = 0.3;
   }
 
@@ -70,16 +75,16 @@ export default class Game extends Phaser.Scene {
     //this.player.play("front", true);
 
     if (this.cursors && this.cursors.left.isDown) {
-      this.player.setVelocityX(-100);
+      this.player.setVelocityX(-this.speed);
       this.player.play("left", true);
     } else if (this.cursors && this.cursors.right.isDown) {
-      this.player.setVelocityX(100);
+      this.player.setVelocityX(this.speed);
       this.player.play("right", true);
     } else if (this.cursors && this.cursors.up.isDown) {
-      this.player.setVelocityY(-100);
+      this.player.setVelocityY(-this.speed);
       this.player.play("back", true);
     } else if (this.cursors && this.cursors.down.isDown) {
-      this.player.setVelocityY(100);
+      this.player.setVelocityY(this.speed);
       this.player.play("front", true);
     } else {
       this.player.setVelocityX(0);
