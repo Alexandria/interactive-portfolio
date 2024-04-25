@@ -7,7 +7,6 @@ import WorldMap from "../components/WorldMap";
 export default class Game extends Phaser.Scene {
   private player: Player;
   private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
-  private speed = 100;
   constructor() {
     // https://stackoverflow.com/questions/52864250/what-is-the-function-of-super-in-phaser-frameworks
     super("game");
@@ -17,6 +16,7 @@ export default class Game extends Phaser.Scene {
 
   create() {
     const scale = 4;
+    const speed = 100;
     const map2 = new WorldMap(
       this,
       this.make.tilemap({ key: "tileMap" }),
@@ -26,7 +26,7 @@ export default class Game extends Phaser.Scene {
     this.player = new Player(
       { scene: this, x: 1088, y: 440, key: "character" },
       scale,
-      this.speed,
+      speed,
     );
     map2.addCollision(this.player);
     map2.worldDebug();
