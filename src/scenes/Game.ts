@@ -17,7 +17,7 @@ export default class Game extends Phaser.Scene {
   create() {
     const scale = 4;
     const speed = 100;
-    const map2 = new WorldMap(
+    const worldMap = new WorldMap(
       this,
       this.make.tilemap({ key: "tileMap" }),
       scale,
@@ -28,8 +28,8 @@ export default class Game extends Phaser.Scene {
       scale,
       speed,
     );
-    map2.addCollision(this.player);
-    map2.worldDebug();
+    worldMap.addCollision(this.player);
+    worldMap.worldDebug();
 
     this.cursors = this.input.keyboard?.createCursorKeys();
 
