@@ -13,14 +13,14 @@ const config: Phaser.Types.Core.GameConfig = {
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: 1000,
-    height: 350,
+    width: 1280,
+    height: 720,
   },
+  backgroundColor: "#fff7e4",
   pixelArt: true, // Makes the pixel art have clear resolution
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { x: 0, y: 0 },
       debug: true,
     },
   },
