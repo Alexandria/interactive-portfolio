@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import { debugDraw } from "../utils/debugDraw";
+import { PictureOptions } from "../types";
 
 class Map {
   public scene: Phaser.Scene;
@@ -17,6 +18,7 @@ class Map {
 
 class WorldMap extends Map {
   private wallLayer: Phaser.Tilemaps.TilemapLayer;
+  private pictureObjects: Phaser.Tilemaps.ObjectLayer | null;
   constructor(
     scene: Phaser.Scene,
     map: Phaser.Tilemaps.Tilemap,
@@ -24,25 +26,36 @@ class WorldMap extends Map {
   ) {
     super(scene, map);
     this.scene = scene;
+    const xPosition = 0;
+    const yPosition = 0;
     const wallTileset = map.addTilesetImage("basic-wallpapper", "wallTiles")!;
     const edgeTileset = map.addTilesetImage("basic-wall-edges", "edgeTiles")!;
-    const floorTileSet = map.addTilesetImage("basic-floors", "floorTiles")!;
+    const floorTileSet = map.addTilesetImage("basic-floor", "floorTiles")!;
     const decorTileSet = map.addTilesetImage("decorations", "decorTiles")!;
     const storageTileSet = map.addTilesetImage("storage", "storageTiles")!;
+
+    this.pictureObjects = map.getObjectLayer("markers");
+    console.log("picuture objects", this.pictureObjects);
 
     this.wallLayer = map.createLayer(
       "walls",
       [wallTileset, edgeTileset],
-      100,
-      110,
+      xPosition,
+      yPosition,
     )!;
     const decor = map.createLayer(
       "decor",
       [decorTileSet, storageTileSet],
-      100,
-      110,
+      xPosition,
+      yPosition,
     )!;
-    const floor = map.createLayer("ground", floorTileSet, 100, 110)!;
+
+    const floor = map.createLayer(
+      "ground",
+      floorTileSet,
+      xPosition,
+      yPosition,
+    )!;
 
     if (scale) {
       this.wallLayer.scale = scale;
@@ -50,18 +63,27 @@ class WorldMap extends Map {
       floor.scale = scale;
     }
 
+    this.wallLayer.setOrigin(0, 0);
+
     this.wallLayer.setCollisionByProperty({ collides: true });
   }
 
   worldDebug() {
     debugDraw(this.scene, this.wallLayer);
-    // this.scene.input.keyboard?.once("keydown-D", (event) => {
-    //   debugDraw(this.scene, this.wallLayer);
-    // });
   }
 
   addCollision(player: Phaser.Types.Physics.Arcade.ArcadeColliderType) {
     this.scene.physics.add.collider(player, this.wallLayer);
+  }
+
+  getPictureObjects() {
+    return this.pictureObjects;
+  }
+
+  getMarkerPositionByName(name: PictureOptions) {
+    return this.pictureObjects?.objects.find(
+      (picture) => picture.name === name,
+    );
   }
 }
 

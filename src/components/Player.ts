@@ -10,7 +10,7 @@ interface Config {
 class Player extends Phaser.Physics.Arcade.Sprite {
   private speed;
   constructor(config: Config, scale: number, speed) {
-    super(config.scene, 1000, 500, config.key);
+    super(config.scene, config.x, config.y, config.key);
     config.scene.add.existing(this);
     config.scene.physics.add.existing(this, false);
 

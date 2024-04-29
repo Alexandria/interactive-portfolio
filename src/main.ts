@@ -1,22 +1,23 @@
 import Phaser from "phaser";
 
-import Example from "./scenes/Example";
 import Preloader from "./scenes/Preloader";
 import Game from "./scenes/Game";
 
 // Responzise Game mode
 // https://stackoverflow.com/questions/51518818/how-to-make-canvas-responsive-using-phaser-3
 // https://www.emanueleferonato.com/2018/02/16/how-to-scale-your-html5-games-if-your-framework-does-not-feature-a-scale-manager-or-if-you-do-not-use-any-framework/
+export const SCALE = 8;
+export const CANVAS_SCALE = SCALE / 1.4;
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.CANVAS,
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: 1280,
-    height: 720,
+    width: 608 * CANVAS_SCALE,
+    height: 144 * CANVAS_SCALE,
   },
-  backgroundColor: "#fff7e4",
+  //backgroundColor: "#fff7e4",
   pixelArt: true, // Makes the pixel art have clear resolution
   physics: {
     default: "arcade",
