@@ -30,7 +30,7 @@ export default class Game extends Phaser.Scene {
 
   create() {
     console.log("scale", SCALE);
-    const speed = 200;
+    const speed = 75;
     const worldMap = new WorldMap(
       this,
       this.make.tilemap({ key: "tileMap" }),
@@ -53,8 +53,8 @@ export default class Game extends Phaser.Scene {
     const joyStickPos = worldMap.getMarkerPositionByName("joyStick")!;
 
     this.joyStick = new VirtualJoystick(this, {
-      x: joyStickPos.x! * CANVAS_SCALE,
-      y: joyStickPos.y! * 7.5,
+      x: joyStickPos.x! * SCALE + 100,
+      y: joyStickPos.y! * SCALE,
       base: this.add.circle(0, 0, 50, 0x888888),
       thumb: this.add.circle(0, 0, 25, 0xcccccc),
       radius: 50,
@@ -147,9 +147,9 @@ export default class Game extends Phaser.Scene {
     // Camera
     const cam = this.cameras.main;
 
-    cam.startFollow(this.player);
-    cam.setBounds(-400, 0, 4900, 1440);
-    cam.setViewport(-400, 50, 2000, 1000);
+    cam.startFollow(this.player, undefined, undefined, undefined, -200);
+    cam.setBounds(-400, 0, 3270, 1050);
+    cam.setViewport(-400, 0, 2000, 1000);
     //cam.zoom = 0.3;
 
     // EndCamera
