@@ -235,9 +235,16 @@ export default class Game extends Phaser.Scene {
         safeArea.width = +this.game.config.width;
         safeArea.y = safeAreaY;
         // adjust the controls section
-        this.joyStick.x = window.innerWidth / 3 + 420;
-        this.joyStick.base.radius = 30;
-        this.joyStick.thumb.radius = 15;
+        this.joyStick.x = window.innerWidth / 3 + 430;
+        this.joyStick.base.radius = 40;
+        this.joyStick.thumb.radius = 25;
+        cam.setBounds(
+          -800,
+          0,
+          world.width * SCALE + 900,
+          world.height * SCALE,
+          true,
+        );
         this.joyStick.y = joyStickPosY;
       } else {
         safeArea.x = safeAreaX;

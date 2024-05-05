@@ -14,8 +14,8 @@ class Picture extends Phaser.Physics.Arcade.Sprite {
     super(config.scene, config.x, config.y, config.key);
     config.scene.add.existing(this);
     config.scene.physics.add.existing(this, true);
-    this.body!.setSize(this.width * 0.5, this.height * 1.5);
-    this.body!.setOffset(8, 7);
+    this.body!.setSize(this.width * 2, this.height * 6.5);
+    this.body!.setOffset(-5, 7);
 
     this.link = link;
     this.setScale(scale);
