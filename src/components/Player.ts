@@ -10,7 +10,7 @@ interface Config {
 class Player extends Phaser.Physics.Arcade.Sprite {
   private speed;
   constructor(config: Config, scale: number, speed) {
-    super(config.scene, 1000, 500, config.key);
+    super(config.scene, config.x, config.y, config.key);
     config.scene.add.existing(this);
     config.scene.physics.add.existing(this, false);
 
@@ -27,24 +27,24 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.body!.offset.y = 22;
   }
 
-  moveRight(delta: number) {
+  moveRight(delta?: number) {
     this.anims.play("right", true);
-    this.setVelocityX(this.speed * delta);
+    this.setVelocityX(this.speed);
   }
 
   moveLeft(delta: number) {
     this.anims.play("left", true);
-    this.setVelocityX(-this.speed * delta);
+    this.setVelocityX(-this.speed);
   }
 
   moveUp(delta: number) {
     this.anims.play("back", true);
-    this.setVelocityY(-this.speed * delta);
+    this.setVelocityY(-this.speed);
   }
 
   moveDown(delta: number) {
     this.anims.play("front", true);
-    this.setVelocityY(this.speed * delta);
+    this.setVelocityY(this.speed);
   }
 
   stopMoving() {
