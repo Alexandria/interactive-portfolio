@@ -32,7 +32,7 @@ export default class Game extends Phaser.Scene {
 
   create() {
     this.resizeScale = SCALE;
-    const speed = 400;
+    const speed = 100;
     const yPosition = 100;
     const safeAreaX =
       this.cameras.main.width / 2.5 - +this.game.config.width / 2.5;

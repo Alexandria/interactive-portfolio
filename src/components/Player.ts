@@ -27,24 +27,24 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.body!.offset.y = 22;
   }
 
-  moveRight(delta: number) {
+  moveRight(delta?: number) {
     this.anims.play("right", true);
-    this.setVelocityX(this.speed * delta);
+    this.setVelocityX(this.speed);
   }
 
   moveLeft(delta: number) {
     this.anims.play("left", true);
-    this.setVelocityX(-this.speed * delta);
+    this.setVelocityX(-this.speed);
   }
 
   moveUp(delta: number) {
     this.anims.play("back", true);
-    this.setVelocityY(-this.speed * delta);
+    this.setVelocityY(-this.speed);
   }
 
   moveDown(delta: number) {
     this.anims.play("front", true);
-    this.setVelocityY(this.speed * delta);
+    this.setVelocityY(this.speed);
   }
 
   stopMoving() {
