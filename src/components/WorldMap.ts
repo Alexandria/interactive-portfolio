@@ -18,6 +18,8 @@ class Map {
 
 class WorldMap extends Map {
   private wallLayer: Phaser.Tilemaps.TilemapLayer;
+  private decorLayer: Phaser.Tilemaps.TilemapLayer;
+  private floorLayer: Phaser.Tilemaps.TilemapLayer;
   private pictureObjects: Phaser.Tilemaps.ObjectLayer | null;
   constructor(
     scene: Phaser.Scene,
@@ -27,7 +29,7 @@ class WorldMap extends Map {
     super(scene, map);
     this.scene = scene;
     const xPosition = 0;
-    const yPosition = 0;
+    const yPosition = 100;
     const wallTileset = map.addTilesetImage("basic-wallpapper", "wallTiles")!;
     const edgeTileset = map.addTilesetImage("basic-wall-edges", "edgeTiles")!;
     const floorTileSet = map.addTilesetImage("basic-floor", "floorTiles")!;
@@ -43,14 +45,14 @@ class WorldMap extends Map {
       xPosition,
       yPosition,
     )!;
-    const decor = map.createLayer(
+    this.decorLayer = map.createLayer(
       "decor",
       [decorTileSet, storageTileSet],
       xPosition,
       yPosition,
     )!;
 
-    const floor = map.createLayer(
+    this.floorLayer = map.createLayer(
       "ground",
       floorTileSet,
       xPosition,
@@ -59,13 +61,20 @@ class WorldMap extends Map {
 
     if (scale) {
       this.wallLayer.scale = scale;
-      decor.scale = scale;
-      floor.scale = scale;
+      this.decorLayer.scale = scale;
+      this.floorLayer.scale = scale;
     }
 
     this.wallLayer.setOrigin(0, 0);
 
     this.wallLayer.setCollisionByProperty({ collides: true });
+  }
+
+  getWallLayerSize() {
+    return {
+      width: this.wallLayer.width,
+      height: this.wallLayer.height,
+    };
   }
 
   worldDebug() {
@@ -84,6 +93,12 @@ class WorldMap extends Map {
     return this.pictureObjects?.objects.find(
       (picture) => picture.name === name,
     );
+  }
+
+  setWorldScale(scaleNumber: number) {
+    this.wallLayer.scale = scaleNumber;
+    this.decorLayer.scale = scaleNumber;
+    this.floorLayer.scale = scaleNumber;
   }
 }
 
