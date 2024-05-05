@@ -59,6 +59,8 @@ export default class Game extends Phaser.Scene {
       this.cameras.main.height / 2.5 - +this.game.config.height / 4.5 - 5;
     const joyStickPosX = safeAreaX + 300;
     const joyStickPosY = safeAreaY + 450;
+    const actionButtonX = joyStickPosX + 500;
+    const actionButtonY = joyStickPosY;
 
     const worldMap = new WorldMap(
       this,
@@ -209,13 +211,23 @@ export default class Game extends Phaser.Scene {
       dir: "4dir",
     });
     this.joyCursors = this.joyStick.createCursorKeys();
+    var actionButton = this.add
+      .circle(actionButtonX, actionButtonY, 40, 0x888888)
+      .setStrokeStyle(2, 0x888888)
+      .setInteractive()
+      .setScrollFactor(0)
+      .on("pointerdown", () => {
+        console.log("is Pressed!");
+      });
 
     const resize = (displaySize?: any, gameSize?: any) => {
       this.isMobile = isMobile();
       if (!this.isMobile) {
         this.joyStick.setVisible(false);
+        actionButton.setVisible(false);
       } else {
         this.joyStick.setVisible(true);
+        actionButton.setVisible(true);
       }
       console.log("isMobile", this.isMobile);
       // handle landscape versus Portrait
@@ -261,6 +273,8 @@ export default class Game extends Phaser.Scene {
         safeArea.y = safeAreaY;
         // adjust the controls section
         this.joyStick.x = window.innerWidth / 3 + 430;
+        actionButton.x = window.innerWidth / 3 + 600;
+        actionButton.y = joyStickPosY;
         this.joyStick.base.radius = 40;
         this.joyStick.thumb.radius = 25;
         cam.setBounds(
