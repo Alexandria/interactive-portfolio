@@ -213,7 +213,7 @@ export default class Game extends Phaser.Scene {
     this.joyCursors = this.joyStick.createCursorKeys();
     // Likely will need to remove button and have player press on things to interact with them
     var actionButton = this.add
-      .circle(actionButtonX, actionButtonY, 40, 0x888888)
+      .circle(actionButtonX, actionButtonY, 40, 0x295878)
       .setStrokeStyle(2, 0x888888)
       .setInteractive()
       .setScrollFactor(0)
