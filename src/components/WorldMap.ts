@@ -21,6 +21,7 @@ class WorldMap extends Map {
   private decorLayer: Phaser.Tilemaps.TilemapLayer;
   private floorLayer: Phaser.Tilemaps.TilemapLayer;
   private pictureObjects: Phaser.Tilemaps.ObjectLayer | null;
+  private yPosition: number;
   constructor(
     scene: Phaser.Scene,
     map: Phaser.Tilemaps.Tilemap,
@@ -29,7 +30,7 @@ class WorldMap extends Map {
     super(scene, map);
     this.scene = scene;
     const xPosition = 0;
-    const yPosition = 100;
+    this.yPosition = 100;
     const wallTileset = map.addTilesetImage("basic-wallpapper", "wallTiles")!;
     const edgeTileset = map.addTilesetImage("basic-wall-edges", "edgeTiles")!;
     const floorTileSet = map.addTilesetImage("basic-floor", "floorTiles")!;
@@ -43,20 +44,20 @@ class WorldMap extends Map {
       "walls",
       [wallTileset, edgeTileset],
       xPosition,
-      yPosition,
+      this.yPosition,
     )!;
     this.decorLayer = map.createLayer(
       "decor",
       [decorTileSet, storageTileSet],
       xPosition,
-      yPosition,
+      this.yPosition,
     )!;
 
     this.floorLayer = map.createLayer(
       "ground",
       floorTileSet,
       xPosition,
-      yPosition,
+      this.yPosition,
     )!;
 
     if (scale) {
@@ -99,6 +100,12 @@ class WorldMap extends Map {
     this.wallLayer.scale = scaleNumber;
     this.decorLayer.scale = scaleNumber;
     this.floorLayer.scale = scaleNumber;
+  }
+
+  setWorldYPosition(newYPos: number) {
+    this.wallLayer.y = newYPos;
+    this.decorLayer.y = newYPos;
+    this.floorLayer.y = newYPos;
   }
 }
 
