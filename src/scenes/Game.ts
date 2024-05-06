@@ -56,12 +56,13 @@ export default class Game extends Phaser.Scene {
     this.isMobile = false;
     const speed = 100;
     const yPosition = 100;
-    const safeAreaX =
-      this.cameras.main.width / 2.5 - +this.game.config.width / 2.5;
-    const safeAreaY =
-      this.cameras.main.height / 2.5 - +this.game.config.height / 4.5 - 5;
-    const joyStickPosX = safeAreaX + 300;
-    const joyStickPosY = safeAreaY + 450;
+    const safeAreaX = window.innerWidth / 3;
+    const safeAreaY = yPosition + 20;
+    const safeAreaWidth = 500;
+    const safeAreaHeight = 400;
+    this.cameras.main.height / 2.5 - +this.game.config.height / 4.5 - 5;
+    const joyStickPosX = safeAreaX;
+    const joyStickPosY = safeAreaY;
     this.windowOrientation === "Web";
 
     const worldMap = new WorldMap(
@@ -194,8 +195,8 @@ export default class Game extends Phaser.Scene {
       .rectangle(
         safeAreaX,
         safeAreaY,
-        +this.game.config.width / 1.3,
-        +this.game.config.height / 1.3,
+        safeAreaWidth,
+        safeAreaHeight,
         0xff00ff,
         0.08,
       )
