@@ -10,12 +10,12 @@ interface Config {
 class Picture extends Phaser.Physics.Arcade.Sprite {
   private inInteractZone = false;
   private link?: string;
-  constructor(config: Config, scale?: number, link?: string) {
+  constructor(config: Config, scale: number, link?: string) {
     super(config.scene, config.x, config.y, config.key);
     config.scene.add.existing(this);
     config.scene.physics.add.existing(this, true);
-    this.body!.setSize(this.width * 2, this.height * 6.5);
-    this.body!.setOffset(-5, 7);
+    this.body!.setSize((this.width * scale) / 2, 32 * scale);
+    this.body!.setOffset(0, 20);
 
     this.link = link;
     this.setScale(scale);
@@ -34,7 +34,6 @@ class Picture extends Phaser.Physics.Arcade.Sprite {
 
   addCollision(player: Phaser.Types.Physics.Arcade.ArcadeColliderType) {
     this.scene.physics.add.overlap(player, this, () => {
-      console.log("interaction");
       this.inInteractZone = true;
     });
   }

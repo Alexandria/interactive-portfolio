@@ -62,6 +62,7 @@ export default class Game extends Phaser.Scene {
       this.cameras.main.height / 2.5 - +this.game.config.height / 4.5 - 5;
     const joyStickPosX = safeAreaX + 300;
     const joyStickPosY = safeAreaY + 450;
+    this.windowOrientation === "Web";
 
     const worldMap = new WorldMap(
       this,
@@ -257,50 +258,74 @@ export default class Game extends Phaser.Scene {
       // setOritentation
       this.setWindowOrientation();
 
-      // handle landscape versus Portrait
-      // if (XLargeBreakPoint) {
-      //   this.joyStick.x = window.innerWidth / 3 + 100;
-      //   this.joyStick.y = joyStickPosY;
-      // } else if (LargeBreakPoint) {
-      //   this.joyStick.x = window.innerWidth / 3 + 150;
-      //   this.joyStick.y = joyStickPosY;
-      // } else if (MediumBreakPoint) {
-      //   this.joyStick.x = window.innerWidth / 3 + 200;
-      //   this.joyStick.base.radius = 40;
-      //   this.joyStick.thumb.radius = 25;
-      //   this.joyStick.y = joyStickPosY;
-      // } else if (SmallBreakPoint) {
-      //   this.joyStick.x = window.innerWidth / 3 + 400;
-      //   this.joyStick.base.radius = 40;
-      //   this.joyStick.thumb.radius = 25;
-      //   this.joyStick.y = joyStickPosY;
-      // } else if (XSmallBreakPoint) {
-      //   this.joyStick.x = window.innerWidth / 3 + 430;
-      //   this.joyStick.base.radius = 40;
-      //   this.joyStick.thumb.radius = 25;
-      //   cam.setBounds(
-      //     -800,
-      //     0,
-      //     world.width * SCALE + 900,
-      //     world.height * SCALE,
-      //     true,
-      //   );
-      // }
+      console.log("all positions", {
+        matchThreePosition,
+        fnafPosition,
+        candyHagDashPos,
+        cursedPicPos,
+      });
 
-      const newScale = Math.max(this.cameras.main.height / 200, 1);
-      this.setNewScale(newScale, yPosition, playerPos, worldMap);
+      if (this.windowOrientation === "Web") {
+        const newScale = Math.max(this.cameras.main.height / 250, 1);
+        this.setNewScale(newScale, yPosition, playerPos, worldMap);
+        this.updatePhotoPositions(
+          {
+            matchThreePosition,
+            fnafPosition,
+            inTheWoodsPos,
+            candyHagDashPos,
+            cursedPicPos,
+          },
+          newScale,
+          yPosition,
+        );
+      }
 
       if (this.windowOrientation === "Portrait") {
         const newScale = Math.max(this.cameras.main.height / 200, 1);
-        this.resizeItemsPortaitMode(BreakPoints);
+        this.resizeItemsPortaitMode(
+          BreakPoints,
+          this.cameras.main,
+          world,
+          newScale,
+        );
         this.setNewScale(newScale, yPosition, playerPos, worldMap);
+        this.updatePhotoPositions(
+          {
+            matchThreePosition,
+            fnafPosition,
+            inTheWoodsPos,
+            candyHagDashPos,
+            cursedPicPos,
+          },
+          newScale,
+          yPosition,
+        );
       }
 
       if (this.windowOrientation === "Landscape") {
         console.log("landscape <===");
+        const newYPosition = 175;
         const newScale = Math.max(this.cameras.main.height / 350, 1);
-        this.resizeItemsLandscapeMode(landScapeBreakPoints);
-        this.setNewScale(newScale, 175, playerPos, worldMap);
+        this.resizeItemsLandscapeMode(
+          landScapeBreakPoints,
+          cam,
+          world,
+          newScale,
+        );
+        this.setNewScale(newScale, newYPosition, playerPos, worldMap);
+
+        this.updatePhotoPositions(
+          {
+            matchThreePosition,
+            fnafPosition,
+            inTheWoodsPos,
+            candyHagDashPos,
+            cursedPicPos,
+          },
+          newScale,
+          newYPosition,
+        );
       }
     };
 
@@ -314,7 +339,7 @@ export default class Game extends Phaser.Scene {
     resize();
   }
 
-  resizeItemsPortaitMode(brackPoints) {
+  resizeItemsPortaitMode(brackPoints, cam, world, newScale) {
     console.log(brackPoints);
     if (brackPoints.XLargeBreakPoint) {
       this.joyStick.x = window.innerWidth / 3 + 100;
@@ -332,17 +357,59 @@ export default class Game extends Phaser.Scene {
       this.joyStick.x = window.innerWidth / 3 + 430;
       this.joyStick.base.radius = 40;
       this.joyStick.thumb.radius = 25;
-      // cam.setBounds(
-      //   -800,
-      //   0,
-      //   world.width * SCALE + 900,
-      //   world.height * SCALE,
-      //   true,
-      // );
     }
+
+    cam.setBounds(
+      -800,
+      0,
+      world.width * newScale + 1050,
+      world.height * newScale,
+      true,
+    );
   }
 
-  resizeItemsLandscapeMode(brackPoints) {
+  updatePhotoPositions(positions, newScale, yPosition) {
+    positions.matchThreePosition.y! * newScale + yPosition;
+    this.matchThreePic
+      .setPosition(
+        positions.matchThreePosition.x! * newScale,
+        positions.matchThreePosition.y! * newScale + yPosition,
+      )
+      .setBodySize((48 * newScale) / 2, 48 * newScale)
+      .setOffset(positions.matchThreePosition.x! - 75, 2);
+
+    this.fnafPic
+      .setPosition(
+        positions.fnafPosition.x! * newScale,
+        positions.fnafPosition.y! * newScale + yPosition,
+      )
+      .setBodySize((48 * newScale) / 2, 48 * newScale)
+      .setOffset(positions.fnafPosition.x! - 100, 2);
+    this.inTheWoodsPic
+      .setPosition(
+        positions.inTheWoodsPos.x! * newScale,
+        positions.inTheWoodsPos.y! * newScale + yPosition,
+      )
+      .setBodySize((48 * newScale) / 2, 48 * newScale)
+      .setOffset(positions.inTheWoodsPos.x! - 150, 2);
+
+    this.candyHadPic
+      .setPosition(
+        positions.candyHagDashPos.x! * newScale,
+        positions.candyHagDashPos.y! * newScale + yPosition,
+      )
+      .setBodySize((48 * newScale) / 2, 48 * newScale)
+      .setOffset(positions.candyHagDashPos.x! - 175, 2);
+    this.cursedPic
+      .setPosition(
+        positions.cursedPicPos.x! * newScale,
+        positions.cursedPicPos.y! * newScale + yPosition,
+      )
+      .setBodySize((48 * newScale) / 2, 48 * newScale)
+      .setOffset(positions.cursedPicPos.x! - 200, 2);
+  }
+
+  resizeItemsLandscapeMode(brackPoints, cam, world, newScale) {
     console.log("breakPoints!🥪", brackPoints);
     if (brackPoints.XLargeBreakPointLS) {
       console.log("🍒XL WIDTH!!");
@@ -370,14 +437,15 @@ export default class Game extends Phaser.Scene {
       this.joyStick.x = window.innerWidth / 3 + 430;
       this.joyStick.base.radius = 40;
       this.joyStick.thumb.radius = 25;
-      // cam.setBounds(
-      //   -800,
-      //   0,
-      //   world.width * SCALE + 900,
-      //   world.height * SCALE,
-      //   true,
-      // );
     }
+
+    cam.setBounds(
+      -800,
+      0,
+      world.width * newScale + 800,
+      world.height * newScale,
+      true,
+    );
   }
 
   setNewScale(newScale: number, yPosition, playerPos, worldMap) {
@@ -402,12 +470,12 @@ export default class Game extends Phaser.Scene {
   }
 
   setWindowOrientation() {
-    if (!this.isMobile) this.windowOrientation === "Web";
+    if (!this.isMobile) return this.windowOrientation === "Web";
     if (window.matchMedia("(orientation: landscape)").matches) {
-      this.windowOrientation = "Landscape";
+      return (this.windowOrientation = "Landscape");
     }
     if (window.matchMedia("(orientation: portrait)").matches) {
-      this.windowOrientation = "Portrait";
+      return (this.windowOrientation = "Portrait");
     }
   }
 
@@ -433,9 +501,8 @@ export default class Game extends Phaser.Scene {
   }
 
   update(time: number, delta: number): void {
-    // Player Movement
+    // Player Movements
     this.player.stopMoving();
-
     if (this.cursors && this.cursors.left.isDown) {
       this.player.moveLeft(delta);
     } else if (this.cursors && this.cursors.right.isDown) {
