@@ -306,7 +306,7 @@ export default class Game extends Phaser.Scene {
       if (this.windowOrientation === "Landscape") {
         console.log("landscape <===");
         const newYPosition = 175;
-        const newScale = Math.max(this.cameras.main.height / 350, 1);
+        const newScale = 2.5;
         this.resizeItemsLandscapeMode(
           landScapeBreakPoints,
           cam,
@@ -363,13 +363,57 @@ export default class Game extends Phaser.Scene {
       -800,
       0,
       world.width * newScale + 1050,
-      world.height * newScale,
+      world.height * newScale + 200,
       true,
     );
   }
 
+  updatePhotoPositionsLandscape(positions, newScale, yPosition) {
+    const innerWith = window.innerWidth;
+    this.matchThreePic
+      .setPosition(
+        positions.matchThreePosition.x! * newScale,
+        positions.matchThreePosition.y! * newScale + yPosition,
+      )
+      .setBodySize((48 * newScale) / 2, 58 * newScale)
+      .setOffset(innerWith / positions.matchThreePosition.x! - 80, 2);
+
+    this.fnafPic
+      .setPosition(
+        positions.fnafPosition.x! * newScale,
+        positions.fnafPosition.y! * newScale + yPosition,
+      )
+      .setBodySize((48 * newScale) / 2, 58 * newScale)
+      .setOffset(innerWith / positions.fnafPosition.x! - 120, 2);
+    this.inTheWoodsPic
+      .setPosition(
+        positions.inTheWoodsPos.x! * newScale,
+        positions.inTheWoodsPos.y! * newScale + yPosition,
+      )
+      .setBodySize((48 * newScale) / 2, 58 * newScale)
+      .setOffset(innerWith / positions.inTheWoodsPos.x! - 175, 2);
+
+    this.candyHadPic
+      .setPosition(
+        positions.candyHagDashPos.x! * newScale,
+        positions.candyHagDashPos.y! * newScale + yPosition,
+      )
+      .setBodySize((48 * newScale) / 2, 58 * newScale)
+      .setOffset(innerWith / positions.candyHagDashPos.x! - 215, 2);
+    this.cursedPic
+      .setPosition(
+        positions.cursedPicPos.x! * newScale,
+        positions.cursedPicPos.y! * newScale + yPosition,
+      )
+      .setBodySize((48 * newScale) / 2, 58 * newScale)
+      .setOffset(innerWith / positions.cursedPicPos.x! - 250, 2);
+  }
+
   updatePhotoPositions(positions, newScale, yPosition) {
-    positions.matchThreePosition.y! * newScale + yPosition;
+    if (this.windowOrientation === "Landscape") {
+      this.updatePhotoPositionsLandscape(positions, newScale, yPosition);
+      return;
+    }
     this.matchThreePic
       .setPosition(
         positions.matchThreePosition.x! * newScale,
@@ -442,7 +486,7 @@ export default class Game extends Phaser.Scene {
     cam.setBounds(
       -800,
       0,
-      world.width * newScale + 800,
+      world.width * newScale + 1000,
       world.height * newScale,
       true,
     );
