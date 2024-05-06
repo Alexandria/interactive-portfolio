@@ -62,7 +62,7 @@ export default class Game extends Phaser.Scene {
     const safeAreaHeight = 400;
     this.cameras.main.height / 2.5 - +this.game.config.height / 4.5 - 5;
     const joyStickPosX = safeAreaX;
-    const joyStickPosY = safeAreaY;
+    const joyStickPosY = safeAreaY + 500;
     this.windowOrientation === "Web";
 
     const worldMap = new WorldMap(
@@ -289,6 +289,7 @@ export default class Game extends Phaser.Scene {
           this.cameras.main,
           world,
           newScale,
+          { x: joyStickPosX, y: joyStickPosY },
         );
         this.setNewScale(newScale, yPosition, playerPos, worldMap);
         this.updatePhotoPositions(
@@ -340,7 +341,7 @@ export default class Game extends Phaser.Scene {
     resize();
   }
 
-  resizeItemsPortaitMode(brackPoints, cam, world, newScale) {
+  resizeItemsPortaitMode(brackPoints, cam, world, newScale, joyStickPos) {
     console.log(brackPoints);
     if (brackPoints.XLargeBreakPoint) {
       this.joyStick.x = window.innerWidth / 3 + 100;
@@ -356,6 +357,7 @@ export default class Game extends Phaser.Scene {
       this.joyStick.thumb.radius = 25;
     } else if (brackPoints.XSmallBreakPoint) {
       this.joyStick.x = window.innerWidth / 3 + 430;
+      this.joyStick.y = joyStickPos.y;
       this.joyStick.base.radius = 40;
       this.joyStick.thumb.radius = 25;
     }
