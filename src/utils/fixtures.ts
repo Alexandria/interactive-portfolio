@@ -15,25 +15,6 @@ const MediumBreakPointLS = window.innerWidth < 750 && window.innerWidth > 700;
 const SmallBreakPointLS = window.innerWidth < 700 && window.innerWidth > 600;
 const XSmallBreakPointLS = window.innerWidth < 600;
 
-// if (brackPoints.XLargeBreakPoint) {
-//       this.joyStick.x = window.innerWidth / 3 + 100;
-//     } else if (brackPoints.LargeBreakPoint) {
-//       this.joyStick.x = window.innerWidth / 3 + 150;
-//     } else if (brackPoints.MediumBreakPoint) {
-//       this.joyStick.x = window.innerWidth / 3 + 200;
-//       this.joyStick.base.radius = 40;
-//       this.joyStick.thumb.radius = 25;
-//     } else if (brackPoints.SmallBreakPoint) {
-//       this.joyStick.x = window.innerWidth / 3 + 400;
-//       this.joyStick.base.radius = 40;
-//       this.joyStick.thumb.radius = 25;
-//     } else if (brackPoints.XSmallBreakPoint) {
-//       this.joyStick.x = window.innerWidth / 3 + 430;
-//       this.joyStick.y = joyStickPos.y;
-//       this.joyStick.base.radius = 40;
-//       this.joyStick.thumb.radius = 25;
-//     }
-
 export const portraitBreakPoints: BreakPoints = {
   XLargeBreakPoint: {
     meetsThreshold: XLargeBreakPoint,

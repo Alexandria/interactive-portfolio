@@ -154,13 +154,6 @@ export default class Game extends Phaser.Scene {
       },
       this.resizeScale,
     );
-
-    this.matchThreePic.addCollision(this.player);
-    this.fnafPic.addCollision(this.player);
-    this.inTheWoodsPic.addCollision(this.player);
-    this.candyHadPic.addCollision(this.player);
-    this.cursedPic.addCollision(this.player);
-
     this.player = new Player(
       {
         scene: this,
@@ -173,6 +166,12 @@ export default class Game extends Phaser.Scene {
     );
 
     worldMap.addCollision(this.player);
+
+    this.matchThreePic.addCollision(this.player);
+    this.fnafPic.addCollision(this.player);
+    this.inTheWoodsPic.addCollision(this.player);
+    this.candyHadPic.addCollision(this.player);
+    this.cursedPic.addCollision(this.player);
 
     // Camera
     const cam = this.cameras.main;
