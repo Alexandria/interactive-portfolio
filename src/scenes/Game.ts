@@ -1,4 +1,4 @@
-import Phaser, { LEFT } from "phaser";
+import Phaser, { LEFT, Scale } from "phaser";
 import Player from "../components/Player";
 import { debugDraw } from "../utils/debugDraw";
 import WorldMap from "../components/WorldMap";
@@ -104,8 +104,8 @@ export default class Game extends Phaser.Scene {
     this.matchThreePic = new Picture(
       {
         scene: this,
-        x: matchThreePosition.x! * this.resizeScale,
-        y: matchThreePosition.y! * this.resizeScale + yPosition,
+        x: matchThreePosition.x! * SCALE,
+        y: matchThreePosition.y! * SCALE + yPosition,
         key: "sign",
       },
       this.resizeScale,
@@ -137,8 +137,8 @@ export default class Game extends Phaser.Scene {
     this.candyHadPic = new Picture(
       {
         scene: this,
-        x: candyHagDashPos.x! * this.resizeScale,
-        y: candyHagDashPos.y! * this.resizeScale + yPosition,
+        x: candyHagDashPos.x! * SCALE,
+        y: candyHagDashPos.y! * SCALE + yPosition,
         key: "sign",
       },
       this.resizeScale,
@@ -218,25 +218,6 @@ export default class Game extends Phaser.Scene {
 
     const resize = () => {
       this.isMobile = isMobile();
-      const XLargeBreakPoint =
-        window.innerWidth < 840 && window.innerWidth > 700;
-      const LargeBreakPoint =
-        window.innerWidth < 700 && window.innerWidth > 645;
-      const MediumBreakPoint =
-        window.innerWidth < 645 && window.innerWidth > 440;
-      const SmallBreakPoint =
-        window.innerWidth < 440 && window.innerWidth > 400;
-      const XSmallBreakPoint = window.innerWidth < 400;
-
-      const XLargeBreakPointLS =
-        window.innerWidth < 940 && window.innerWidth > 850;
-      const LargeBreakPointLS =
-        window.innerWidth < 850 && window.innerWidth > 750;
-      const MediumBreakPointLS =
-        window.innerWidth < 750 && window.innerWidth > 700;
-      const SmallBreakPointLS =
-        window.innerWidth < 700 && window.innerWidth > 600;
-      const XSmallBreakPointLS = window.innerWidth < 600;
 
       // Mobile Controls
       this.setMobileControls();
@@ -317,7 +298,7 @@ export default class Game extends Phaser.Scene {
       x,
       y,
       world.width * newScale + 1050,
-      world.height * newScale + 200,
+      world.height * newScale + 800,
       true,
     );
   }
@@ -349,43 +330,98 @@ export default class Game extends Phaser.Scene {
 
   updatePhotoPositionsLandscape(positions, newScale, yPosition) {
     const innerWith = window.innerWidth;
+    const bodySize = {
+      width: 14 * newScale,
+      height: 14 * newScale,
+      center: undefined,
+    };
+    const yOffSet = 30;
     this.matchThreePic
       .setPosition(
         positions.matchThreePosition.x! * newScale,
         positions.matchThreePosition.y! * newScale + yPosition,
       )
-      .setBodySize((48 * newScale) / 2, 58 * newScale)
-      .setOffset(innerWith / positions.matchThreePosition.x! - 80, 2);
+      .setBodySize(bodySize.width, bodySize.height)
+      .setOffset(innerWith / positions.matchThreePosition.x! - 80, yOffSet);
 
     this.fnafPic
       .setPosition(
         positions.fnafPosition.x! * newScale,
         positions.fnafPosition.y! * newScale + yPosition,
       )
-      .setBodySize((48 * newScale) / 2, 58 * newScale)
-      .setOffset(innerWith / positions.fnafPosition.x! - 120, 2);
+      .setBodySize(bodySize.width, bodySize.height)
+      .setOffset(innerWith / positions.fnafPosition.x! - 120, yOffSet);
     this.inTheWoodsPic
       .setPosition(
         positions.inTheWoodsPos.x! * newScale,
         positions.inTheWoodsPos.y! * newScale + yPosition,
       )
-      .setBodySize((48 * newScale) / 2, 58 * newScale)
-      .setOffset(innerWith / positions.inTheWoodsPos.x! - 175, 2);
+      .setBodySize(bodySize.width, bodySize.height)
+      .setOffset(innerWith / positions.inTheWoodsPos.x! - 167, yOffSet);
 
     this.candyHadPic
       .setPosition(
         positions.candyHagDashPos.x! * newScale,
         positions.candyHagDashPos.y! * newScale + yPosition,
       )
-      .setBodySize((48 * newScale) / 2, 58 * newScale)
-      .setOffset(innerWith / positions.candyHagDashPos.x! - 215, 2);
+      .setBodySize(bodySize.width, bodySize.height)
+      .setOffset(innerWith / positions.candyHagDashPos.x! - 206, yOffSet);
     this.cursedPic
       .setPosition(
         positions.cursedPicPos.x! * newScale,
         positions.cursedPicPos.y! * newScale + yPosition,
       )
-      .setBodySize((48 * newScale) / 2, 58 * newScale)
-      .setOffset(innerWith / positions.cursedPicPos.x! - 250, 2);
+      .setBodySize(bodySize.width, bodySize.height)
+      .setOffset(innerWith / positions.cursedPicPos.x! - 245, yOffSet);
+  }
+
+  updatePhotoPositionsPortrait(positions, newScale, yPosition) {
+    const innerWith = window.innerWidth;
+    const bodySize = {
+      width: 14 * newScale,
+      height: 14 * newScale,
+      center: undefined,
+    };
+    const yOffSet = 30;
+
+    console.log("portrait stuff");
+    this.matchThreePic
+      .setPosition(
+        positions.matchThreePosition.x! * newScale,
+        positions.matchThreePosition.y! * newScale + yPosition,
+      )
+      .setBodySize(bodySize.width, bodySize.height)
+      .setOffset(positions.matchThreePosition.x! - 70, yOffSet);
+
+    this.fnafPic
+      .setPosition(
+        positions.fnafPosition.x! * newScale,
+        positions.fnafPosition.y! * newScale + yPosition,
+      )
+      .setBodySize(bodySize.width, bodySize.height)
+      .setOffset(positions.fnafPosition.x! - 100, yOffSet);
+    this.inTheWoodsPic
+      .setPosition(
+        positions.inTheWoodsPos.x! * newScale,
+        positions.inTheWoodsPos.y! * newScale + yPosition,
+      )
+      .setBodySize(bodySize.width, bodySize.height)
+      .setOffset(positions.inTheWoodsPos.x! - 150, yOffSet);
+
+    this.candyHadPic
+      .setPosition(
+        positions.candyHagDashPos.x! * newScale,
+        positions.candyHagDashPos.y! * newScale + yPosition,
+      )
+      .setBodySize(bodySize.width, bodySize.height)
+      .setOffset(positions.candyHagDashPos.x! - 175, yOffSet);
+    this.cursedPic
+      .setPosition(
+        positions.cursedPicPos.x! * newScale,
+        positions.cursedPicPos.y! * newScale + yPosition,
+      )
+      .setBodySize(bodySize.width, bodySize.height)
+      .setOffset(positions.cursedPicPos.x! - 200, yOffSet);
   }
 
   updatePhotoPositions(positions, newScale, yPosition) {
@@ -393,43 +429,10 @@ export default class Game extends Phaser.Scene {
       this.updatePhotoPositionsLandscape(positions, newScale, yPosition);
       return;
     }
-    this.matchThreePic
-      .setPosition(
-        positions.matchThreePosition.x! * newScale,
-        positions.matchThreePosition.y! * newScale + yPosition,
-      )
-      .setBodySize((48 * newScale) / 2, 48 * newScale)
-      .setOffset(positions.matchThreePosition.x! - 75, 2);
-
-    this.fnafPic
-      .setPosition(
-        positions.fnafPosition.x! * newScale,
-        positions.fnafPosition.y! * newScale + yPosition,
-      )
-      .setBodySize((48 * newScale) / 2, 48 * newScale)
-      .setOffset(positions.fnafPosition.x! - 100, 2);
-    this.inTheWoodsPic
-      .setPosition(
-        positions.inTheWoodsPos.x! * newScale,
-        positions.inTheWoodsPos.y! * newScale + yPosition,
-      )
-      .setBodySize((48 * newScale) / 2, 48 * newScale)
-      .setOffset(positions.inTheWoodsPos.x! - 150, 2);
-
-    this.candyHadPic
-      .setPosition(
-        positions.candyHagDashPos.x! * newScale,
-        positions.candyHagDashPos.y! * newScale + yPosition,
-      )
-      .setBodySize((48 * newScale) / 2, 48 * newScale)
-      .setOffset(positions.candyHagDashPos.x! - 175, 2);
-    this.cursedPic
-      .setPosition(
-        positions.cursedPicPos.x! * newScale,
-        positions.cursedPicPos.y! * newScale + yPosition,
-      )
-      .setBodySize((48 * newScale) / 2, 48 * newScale)
-      .setOffset(positions.cursedPicPos.x! - 200, 2);
+    if (this.windowOrientation === "Portrait") {
+      this.updatePhotoPositionsPortrait(positions, newScale, yPosition);
+      return;
+    }
   }
 
   setNewScale(newScale: number, yPosition, playerPos, worldMap) {
