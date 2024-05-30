@@ -10,6 +10,7 @@ import tileMap from "../../public/tiles/room.json";
 import charJSON from "../assets/aseprite/char_walk.json";
 import charWalk from "../assets/aseprite/char_walk.png";
 import picture from "../../public/tiles/objects.png";
+import sign from "../../public/tiles/sign.png";
 
 export default class Preloader extends Phaser.Scene {
   constructor() {
@@ -27,6 +28,7 @@ export default class Preloader extends Phaser.Scene {
     this.load.image("storageTiles", storageTiles);
     this.load.image("picutreTiles", picutreTiles);
     this.load.image("picture", picture);
+    this.load.image("sign", sign);
     this.load.plugin(
       "rexvirtualjoystickplugin",
       "https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexvirtualjoystickplugin.min.js",

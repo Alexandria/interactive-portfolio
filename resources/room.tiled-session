@@ -10,7 +10,7 @@
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "": {
-            "scaleInDock": 1,
+            "scaleInDock": 3,
             "scaleInEditor": 1
         },
         "C:/Users/Lex/Documents/Tiled/testroom.tmj": {
@@ -95,11 +95,11 @@
             "scaleInDock": 1
         },
         "room.tmx": {
-            "scale": 5.5,
-            "selectedLayer": 1,
+            "scale": 4,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 85,
-                "y": 78.27272727272728
+                "x": 233.25,
+                "y": 37.75
             }
         },
         "room.tmx#basic-floor": {
@@ -115,7 +115,8 @@
             "scaleInDock": 1
         },
         "room.tmx#decorations": {
-            "scaleInDock": 3
+            "scaleInDock": 3,
+            "scaleInEditor": 1
         },
         "room.tmx#objects": {
             "scaleInDock": 1
@@ -155,6 +156,7 @@
         "char_walk.tsx",
         "char_walk-sheet.tsx"
     ],
+    "tileset.embedInMap": true,
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
         "height": 16,
