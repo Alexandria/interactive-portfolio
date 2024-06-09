@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import Player from "./Player";
 
 interface Config {
   scene: Phaser.Scene;
@@ -15,13 +16,10 @@ class Picture extends Phaser.Physics.Arcade.Sprite {
     config.scene.add.existing(this);
     config.scene.physics.add.existing(this, true);
     this.body!.setSize(this.width * 3, this.height * 3);
-    //this.body!.setOffset(0, 20);
 
     this.link = link;
     this.setScale(scale);
-    this.setInteractive().on("keydown-SPACE", (event) => {
-      console.log("There was an interactive event spacebar down.");
-    });
+    this.setInteractive();
   }
 
   setInInteractZone(inZone: boolean) {
@@ -32,10 +30,28 @@ class Picture extends Phaser.Physics.Arcade.Sprite {
     return this.inInteractZone;
   }
 
-  addCollision(player: Phaser.Types.Physics.Arcade.ArcadeColliderType) {
-    this.scene.physics.add.overlap(player, this, () => {
-      this.inInteractZone = true;
+  isPlayerPostionNear(player: Player) {
+    const playerXPos = player.body?.position.x! + 2;
+    const playerYPos = player.body?.position.y!;
+    const picPosX = this.body?.position.x!;
+    const picPosY = this.body?.position.y!;
+
+    console.log("Position Check", {
+      playerXPos,
+      playerYPos,
+      picPosX,
+      picPosY,
     });
+    console.log("picPosX + this.width * 3", picPosX + this.width * 3);
+
+    if (playerXPos > picPosX && playerXPos < picPosX + this.width * 3) {
+      console.log("Player has x position");
+      if (playerYPos > picPosY && playerYPos < picPosY + this.width * 3) {
+        console.log("Player has y position");
+        return true;
+      }
+    }
+    return false;
   }
 
   getLink() {
