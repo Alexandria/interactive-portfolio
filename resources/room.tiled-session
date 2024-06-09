@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "room.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
     ],
     "exportAsImage.useCurrentScale": false,
@@ -95,15 +95,16 @@
             "scaleInDock": 1
         },
         "room.tmx": {
-            "scale": 4,
+            "scale": 8,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 233.25,
-                "y": 37.75
+                "x": 125.5,
+                "y": 87.9375
             }
         },
         "room.tmx#basic-floor": {
-            "scaleInDock": 1
+            "scaleInDock": 2,
+            "scaleInEditor": 5.5
         },
         "room.tmx#basic-wall-edges": {
             "scaleInDock": 1
