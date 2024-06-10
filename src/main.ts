@@ -25,7 +25,7 @@ export const config: Phaser.Types.Core.GameConfig = {
   },
   // parent: "phaser-game",
   height: DEFAULT_HEIGHT,
-  backgroundColor: "#fff7e4",
+  backgroundColor: "#36454F",
   pixelArt: true, // Makes the pixel art have clear resolution
   physics: {
     default: "arcade",
