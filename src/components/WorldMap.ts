@@ -18,6 +18,7 @@ class Map {
 
 class WorldMap extends Map {
   private wallLayer: Phaser.Tilemaps.TilemapLayer;
+  private wallBoarderLayer: Phaser.Tilemaps.TilemapLayer;
   private decorLayer: Phaser.Tilemaps.TilemapLayer;
   private floorLayer: Phaser.Tilemaps.TilemapLayer;
   private pictureObjects: Phaser.Tilemaps.ObjectLayer | null;
@@ -60,10 +61,18 @@ class WorldMap extends Map {
       this.yPosition,
     )!;
 
+    this.wallBoarderLayer = map.createLayer(
+      "wallBorder",
+      wallTileset,
+      xPosition,
+      this.yPosition,
+    )!;
+
     if (scale) {
       this.wallLayer.scale = scale;
       this.decorLayer.scale = scale;
       this.floorLayer.scale = scale;
+      this.wallBoarderLayer.scale = scale;
     }
 
     this.wallLayer.setOrigin(0, 0);
