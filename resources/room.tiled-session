@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "room.tmx",
     "expandedProjectPaths": [
     ],
     "exportAsImage.useCurrentScale": false,
@@ -95,22 +95,22 @@
             "scaleInDock": 1
         },
         "room.tmx": {
-            "scale": 8,
-            "selectedLayer": 2,
+            "scale": 4,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 125.5,
-                "y": 87.9375
+                "x": 198.625,
+                "y": 89.375
             }
         },
         "room.tmx#basic-floor": {
-            "scaleInDock": 2,
+            "scaleInDock": 3,
             "scaleInEditor": 5.5
         },
         "room.tmx#basic-wall-edges": {
             "scaleInDock": 1
         },
         "room.tmx#basic-wallpapper": {
-            "scaleInDock": 1
+            "scaleInDock": 3
         },
         "room.tmx#character": {
             "scaleInDock": 1
@@ -131,7 +131,7 @@
         }
     },
     "last.exportedFilePath": "C:/Users/Lex/Documents/GitHub/portfolioProjects/interactive-portfolio/public/tiles",
-    "last.imagePath": "C:/Users/Lex/Documents/GitHub/portfolioProjects/interactive-portfolio/public/tiles",
+    "last.imagePath": "C:/Users/Lex/Documents/Portfolio/adventure-portfolio/assets/Interior full/interior full/furniture/lexModified",
     "map.height": 16,
     "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "map.lastUsedFormat": "json",
