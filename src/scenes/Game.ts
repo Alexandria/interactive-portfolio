@@ -114,7 +114,7 @@ export default class Game extends Phaser.Scene {
 
     const playerPos = worldMap.getMarkerPositionByName("player")!;
 
-    worldMap.worldDebug();
+    //worldMap.worldDebug();
 
     this.cursors = this.input.keyboard?.createCursorKeys();
 
