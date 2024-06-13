@@ -2,11 +2,14 @@ import Phaser from "phaser";
 import Player from "../components/Player";
 import WorldMap from "../components/WorldMap";
 import Picture from "../components/Picture";
+import Light from "../components/Light";
 import { BreakPoints, PictureNames } from "../types";
 import VirtualJoystick from "phaser3-rex-plugins/plugins/virtualjoystick.js";
 import { SCALE } from "../main";
 import { portraitBreakPoints, landscapeBreakPoints } from "../utils/fixtures";
 import { isMobile } from "../utils/isMobile";
+import CursedPicture from "../components/CursedPicture";
+import Cabinet from "../components/Cabinet";
 
 // https://newdocs.phaser.io/docs/3.80.0/Phaser.Animations.AnimationManager#create
 
@@ -22,6 +25,8 @@ export default class Game extends Phaser.Scene {
   private inTheWoodsPic: Picture;
   private candyHadPic: Picture;
   private cursedPic: Picture;
+  private cursedPicture: CursedPicture;
+  private cabinet: Cabinet;
   private resizeScale: number;
   private isMobile: boolean;
   private windowOrientation: Orientation;
@@ -118,6 +123,12 @@ export default class Game extends Phaser.Scene {
 
     this.cursors = this.input.keyboard?.createCursorKeys();
 
+    const lightPosition = worldMap.getMarkerPositionByName(PictureNames.Light)!;
+    const cabinetPos = worldMap.getMarkerPositionByName("cabinetMarker")!;
+
+    const cursedPicturePos = worldMap.getMarkerPositionByName("cursed")!;
+    console.log("cursedPicturePos", cursedPicturePos);
+
     const matchThreePosition = worldMap.getMarkerPositionByName(
       PictureNames.MatchThree,
     )!;
@@ -133,6 +144,36 @@ export default class Game extends Phaser.Scene {
     )!;
 
     this.wasdKeys = this.input.keyboard?.addKeys("W,S,A,D");
+
+    new Light(
+      {
+        scene: this,
+        x: lightPosition.x! * SCALE,
+        y: lightPosition.y! * SCALE + yPosition,
+        key: "light",
+      },
+      this.resizeScale * 0.95,
+    );
+
+    this.cursedPicture = new CursedPicture(
+      {
+        scene: this,
+        x: cursedPicturePos.x! * SCALE,
+        y: cursedPicturePos.y! * SCALE + yPosition,
+        key: "cursedPicture",
+      },
+      this.resizeScale,
+    );
+
+    this.cabinet = new Cabinet(
+      {
+        scene: this,
+        x: cabinetPos.x! * SCALE,
+        y: cabinetPos.y! * SCALE + yPosition,
+        key: "cabinet",
+      },
+      this.resizeScale,
+    );
 
     this.createAllPictures(
       {
@@ -185,7 +226,7 @@ export default class Game extends Phaser.Scene {
     this.cursedPic.on("pointerdown", () => {
       if (this.cursedPic.isPlayerPostionNear(this.player)) {
         console.log("position is true cursed pic");
-        this.playerPicInteraction(this.cursedPic);
+        this.cursedPicInteraction();
       }
     });
 
@@ -473,7 +514,8 @@ export default class Game extends Phaser.Scene {
 
   cursedPicInteraction() {
     // enable dresser animation opening
-    console.log("Boo!");
+    this.cursedPicture.play({ key: "fall" });
+    this.cabinet.play({ key: "open", delay: 1000 });
   }
 
   playerPicInteraction(pic: Picture) {

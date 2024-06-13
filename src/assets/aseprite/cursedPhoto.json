@@ -1,0 +1,64 @@
+{ "frames": [
+   {
+    "filename": "0",
+    "frame": { "x": 0, "y": 0, "w": 65, "h": 60 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 65, "h": 60 },
+    "sourceSize": { "w": 65, "h": 60 },
+    "duration": 100
+   },
+   {
+    "filename": "1",
+    "frame": { "x": 65, "y": 0, "w": 65, "h": 60 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 65, "h": 60 },
+    "sourceSize": { "w": 65, "h": 60 },
+    "duration": 100
+   },
+   {
+    "filename": "2",
+    "frame": { "x": 130, "y": 0, "w": 65, "h": 60 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 65, "h": 60 },
+    "sourceSize": { "w": 65, "h": 60 },
+    "duration": 100
+   },
+   {
+    "filename": "3",
+    "frame": { "x": 195, "y": 0, "w": 65, "h": 60 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 65, "h": 60 },
+    "sourceSize": { "w": 65, "h": 60 },
+    "duration": 100
+   },
+   {
+    "filename": "4",
+    "frame": { "x": 260, "y": 0, "w": 65, "h": 60 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 65, "h": 60 },
+    "sourceSize": { "w": 65, "h": 60 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.7-x64",
+  "image": "cursedPhoto.png",
+  "format": "RGBA8888",
+  "size": { "w": 325, "h": 60 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "fall", "from": 0, "to": 4, "direction": "forward", "color": "#000000ff" }
+  ],
+  "layers": [
+   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

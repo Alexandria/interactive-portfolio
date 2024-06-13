@@ -4,6 +4,7 @@ export const PictureNames = {
   InTheWoods: "inTheWoods",
   CandyHagDash: "candyHagDash",
   CursedPic: "cursedPic",
+  Light: "light",
 };
 
 export type PictureNamesType = typeof PictureNames;
@@ -25,3 +26,10 @@ export type BreakPoints = {
   SmallBreakPoint: BreakPoint;
   XSmallBreakPoint: BreakPoint;
 };
+
+export interface Config {
+  scene: Phaser.Scene;
+  x: number;
+  y: number;
+  key: string;
+}

@@ -1,11 +1,5 @@
 import Phaser from "phaser";
-
-interface Config {
-  scene: Phaser.Scene;
-  x: number;
-  y: number;
-  key: string;
-}
+import { Config } from "../types";
 
 class Player extends Phaser.Physics.Arcade.Sprite {
   private speed;
