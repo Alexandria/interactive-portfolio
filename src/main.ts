@@ -15,7 +15,7 @@ export const MAX_WIDTH = 1580;
 export const MAX_HEIGHT = 920;
 
 export const config: Phaser.Types.Core.GameConfig = {
-  type: Phaser.CANVAS,
+  type: Phaser.WEBGL,
   scale: {
     mode: Phaser.Scale.NONE,
     autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -30,7 +30,7 @@ export const config: Phaser.Types.Core.GameConfig = {
   physics: {
     default: "arcade",
     arcade: {
-      //debug: true,
+      debug: true,
       gravity: { x: 0, y: 0 },
     },
   },
