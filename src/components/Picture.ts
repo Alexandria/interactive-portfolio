@@ -31,8 +31,8 @@ class Picture extends Phaser.Physics.Arcade.Sprite {
   }
 
   isPlayerPostionNear(player: Player) {
-    const playerXPos = player.body?.position.x! + 2;
-    const playerYPos = player.body?.position.y!;
+    const playerXPos = player.body?.position.x! + 10;
+    const playerYPos = player.body?.position.y! - 8;
     const picPosX = this.body?.position.x!;
     const picPosY = this.body?.position.y!;
 
