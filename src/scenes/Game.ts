@@ -521,5 +521,23 @@ export default class Game extends Phaser.Scene {
     } else if (this.cursors && this.joyStick.down) {
       this.player.moveDown(delta);
     }
+
+    if (this.matchThreePic.isPlayerPostionNear(this.player)) {
+      this.matchThreePic.setTint(0xf79489);
+    } else if (this.fnafPic.isPlayerPostionNear(this.player)) {
+      this.fnafPic.setTint(0xf79489);
+    } else if (this.inTheWoodsPic.isPlayerPostionNear(this.player)) {
+      this.inTheWoodsPic.setTint(0xf79489);
+    } else if (this.candyHadPic.isPlayerPostionNear(this.player)) {
+      this.candyHadPic.setTint(0xf79489);
+    } else if (this.cursedPic.isPlayerPostionNear(this.player)) {
+      this.cursedPic.setTint(0xf79489);
+    } else {
+      this.matchThreePic.clearTint();
+      this.inTheWoodsPic.clearTint();
+      this.candyHadPic.clearTint();
+      this.fnafPic.clearTint();
+      this.cursedPic.clearTint();
+    }
   }
 }

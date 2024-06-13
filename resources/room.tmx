@@ -8312,22 +8312,22 @@
 </data>
  </layer>
  <objectgroup id="5" name="markers">
-  <object id="21" name="matchThree" x="134.909" y="75.2727">
+  <object id="21" name="matchThree" x="134.909" y="71.7727">
    <point/>
   </object>
-  <object id="26" name="player" x="142.364" y="72">
+  <object id="26" name="player" x="160.364" y="72">
    <point/>
   </object>
-  <object id="22" name="fnaf" x="215.273" y="75.4545">
+  <object id="22" name="fnaf" x="215.273" y="71.9545">
    <point/>
   </object>
-  <object id="23" name="inTheWoods" x="311.273" y="75.4545">
+  <object id="23" name="inTheWoods" x="311.273" y="71.9545">
    <point/>
   </object>
-  <object id="24" name="candyHagDash" x="391.091" y="75.2727">
+  <object id="24" name="candyHagDash" x="391.091" y="71.7727">
    <point/>
   </object>
-  <object id="25" name="cursedPic" x="472.182" y="75.6363">
+  <object id="25" name="cursedPic" x="472.182" y="72.1363">
    <point/>
   </object>
  </objectgroup>
