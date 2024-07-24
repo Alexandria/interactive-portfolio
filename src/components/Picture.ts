@@ -36,18 +36,8 @@ class Picture extends Phaser.Physics.Arcade.Sprite {
     const picPosX = this.body?.position.x!;
     const picPosY = this.body?.position.y!;
 
-    console.log("Position Check", {
-      playerXPos,
-      playerYPos,
-      picPosX,
-      picPosY,
-    });
-    console.log("picPosX + this.width * 3", picPosX + this.width * 3);
-
     if (playerXPos > picPosX && playerXPos < picPosX + this.width * 3) {
-      console.log("Player has x position");
       if (playerYPos > picPosY && playerYPos < picPosY + this.width * 3) {
-        console.log("Player has y position");
         return true;
       }
     }
