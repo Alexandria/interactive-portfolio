@@ -10,6 +10,7 @@ import { portraitBreakPoints, landscapeBreakPoints } from "../utils/fixtures";
 import { isMobile } from "../utils/isMobile";
 import CursedPicture from "../components/CursedPicture";
 import Cabinet from "../components/Cabinet";
+import RedSmile from "../components/RedSmile";
 
 // https://newdocs.phaser.io/docs/3.80.0/Phaser.Animations.AnimationManager#create
 
@@ -17,6 +18,7 @@ type Orientation = "Portrait" | "Landscape" | "Web";
 
 export default class Game extends Phaser.Scene {
   private player: Player;
+  private smile: RedSmile;
   private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
   private wasdKeys?;
   private joyStick;
@@ -175,6 +177,18 @@ export default class Game extends Phaser.Scene {
       this.resizeScale,
     );
 
+    this.smile = new RedSmile(
+      {
+        scene: this,
+        x: cabinetPos.x! * SCALE,
+        y: cabinetPos.y! * SCALE + yPosition,
+        key: "redSmile",
+      },
+      this.resizeScale,
+    );
+
+    this.smile.visible = false;
+
     this.createAllPictures(
       {
         matchThreePosition,
@@ -329,6 +343,8 @@ export default class Game extends Phaser.Scene {
     });
 
     resize();
+
+    this.anims.addMix("dead", "idle", 1000);
   }
 
   updateCameraBounds(cam, x, y, world, newScale) {
@@ -516,6 +532,11 @@ export default class Game extends Phaser.Scene {
     // enable dresser animation opening
     this.cursedPicture.play({ key: "fall" });
     this.cabinet.play({ key: "open", delay: 1000 });
+    this.time.delayedCall(4000, () => {
+      this.smile.visible = true;
+      this.smile.playReverse({ key: "dead" });
+      this.smile.play({ key: "idle", repeat: -1 });
+    });
   }
 
   playerPicInteraction(pic: Picture) {

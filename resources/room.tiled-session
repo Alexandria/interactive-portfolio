@@ -95,11 +95,11 @@
             "scaleInDock": 1
         },
         "room.tmx": {
-            "scale": 4,
-            "selectedLayer": 3,
+            "scale": 5.5,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 198.625,
-                "y": 89.375
+                "x": 303.90909090909093,
+                "y": 72.00000000000001
             }
         },
         "room.tmx#basic-floor": {

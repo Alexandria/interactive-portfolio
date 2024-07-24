@@ -17,6 +17,8 @@ import cursedPicturePNG from "../assets/aseprite/cursedPhoto.png";
 import cursedPictureJSON from "../assets/aseprite/cursedPhoto.json";
 import cabinetPNG from "../assets/aseprite/cabinet.png";
 import cabinetJSON from "../assets/aseprite/cabinet.json";
+import redSmile from "../assets/aseprite/redSmileAnimations.png";
+import redSmileJSON from "../assets/aseprite/redSmileAnimations.json";
 
 export default class Preloader extends Phaser.Scene {
   constructor() {
@@ -29,6 +31,7 @@ export default class Preloader extends Phaser.Scene {
     this.load.aseprite("character", charWalk, charJSON);
     this.load.aseprite("light", lightPng, lightJSON);
     this.load.aseprite("cursedPicture", cursedPicturePNG, cursedPictureJSON);
+    this.load.aseprite("redSmile", redSmile, redSmileJSON);
     this.load.aseprite("cabinet", cabinetPNG, cabinetJSON);
     this.load.image("wallTiles", wallTiles);
     this.load.image("edgeTiles", edgeTiles);
