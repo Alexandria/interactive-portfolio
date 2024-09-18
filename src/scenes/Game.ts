@@ -18,7 +18,7 @@ type Orientation = "Portrait" | "Landscape" | "Web";
 
 export default class Game extends Phaser.Scene {
   private player: Player;
-  private smile: RedSmile;
+  private redSmile: RedSmile;
   private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
   private wasdKeys?;
   private joyStick;
@@ -121,7 +121,7 @@ export default class Game extends Phaser.Scene {
 
     const playerPos = worldMap.getMarkerPositionByName("player")!;
 
-    //worldMap.worldDebug();
+    // worldMap.worldDebug();
 
     this.cursors = this.input.keyboard?.createCursorKeys();
 
@@ -177,18 +177,6 @@ export default class Game extends Phaser.Scene {
       this.resizeScale,
     );
 
-    this.smile = new RedSmile(
-      {
-        scene: this,
-        x: cabinetPos.x! * SCALE,
-        y: cabinetPos.y! * SCALE + yPosition,
-        key: "redSmile",
-      },
-      this.resizeScale,
-    );
-
-    this.smile.visible = false;
-
     this.createAllPictures(
       {
         matchThreePosition,
@@ -211,7 +199,21 @@ export default class Game extends Phaser.Scene {
       speed,
     );
 
-    worldMap.addCollision(this.player);
+    this.redSmile = new RedSmile(
+      {
+        scene: this,
+        x: cabinetPos.x! * SCALE - 20,
+        y: cabinetPos.y! * SCALE + yPosition,
+        key: "redSmile",
+      },
+      this.resizeScale,
+      speed,
+    );
+
+    worldMap.addCollision(this.player, this.redSmile);
+
+    //this.redSmile.chasePlayer(this.player);
+    this.redSmile.visible = false;
 
     this.matchThreePic.on("pointerdown", () => {
       if (this.matchThreePic.isPlayerPostionNear(this.player)) {
@@ -533,9 +535,12 @@ export default class Game extends Phaser.Scene {
     this.cursedPicture.play({ key: "fall" });
     this.cabinet.play({ key: "open", delay: 1000 });
     this.time.delayedCall(4000, () => {
-      this.smile.visible = true;
-      this.smile.playReverse({ key: "dead" });
-      this.smile.play({ key: "idle", repeat: -1 });
+      this.redSmile.visible = true;
+      this.redSmile.addCollision(this.player);
+    });
+
+    this.time.delayedCall(4500, () => {
+      this.redSmile.setIsChasing(true);
     });
   }
 
@@ -601,6 +606,20 @@ export default class Game extends Phaser.Scene {
       this.candyHadPic.clearTint();
       this.fnafPic.clearTint();
       this.cursedPic.clearTint();
+    }
+
+    // RedSmile Movemment
+
+    console.log("velocity", this.redSmile.body?.velocity.x);
+    if (this.redSmile.getIsChasing()) {
+      this.redSmile.chasePlayer(this.player);
+    }
+    if (
+      this.redSmile.body?.velocity.x !== 0 ||
+      this.redSmile.body?.velocity.x < 0
+    ) {
+      console.log("Should be running!");
+      this.redSmile.play("run", true);
     }
   }
 }

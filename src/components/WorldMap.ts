@@ -91,8 +91,12 @@ class WorldMap extends Map {
     debugDraw(this.scene, this.wallLayer);
   }
 
-  addCollision(player: Phaser.Types.Physics.Arcade.ArcadeColliderType) {
+  addCollision(
+    player: Phaser.Types.Physics.Arcade.ArcadeColliderType,
+    redSmile: Phaser.Types.Physics.Arcade.ArcadeColliderType,
+  ) {
     this.scene.physics.add.collider(player, this.wallLayer);
+    this.scene.physics.add.collider(redSmile, this.wallLayer);
   }
 
   getPictureObjects() {
