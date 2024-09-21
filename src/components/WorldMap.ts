@@ -39,7 +39,6 @@ class WorldMap extends Map {
     const storageTileSet = map.addTilesetImage("storage", "storageTiles")!;
 
     this.pictureObjects = map.getObjectLayer("markers");
-    console.log("picuture objects", this.pictureObjects);
 
     this.wallLayer = map.createLayer(
       "walls",

@@ -11,7 +11,6 @@ import { isMobile } from "../utils/isMobile";
 import CursedPicture from "../components/CursedPicture";
 import Cabinet from "../components/Cabinet";
 import RedSmile from "../components/RedSmile";
-import ExitZone from "../components/ExitZone";
 
 // https://newdocs.phaser.io/docs/3.80.0/Phaser.Animations.AnimationManager#create
 
@@ -36,6 +35,7 @@ export default class Game extends Phaser.Scene {
   private playerDead: () => void;
   private exitZone;
   private redSmileEscaped = false;
+  private isMoveKeyDown = false;
 
   constructor() {
     // https://stackoverflow.com/questions/52864250/what-is-the-function-of-super-in-phaser-frameworks
@@ -101,7 +101,6 @@ export default class Game extends Phaser.Scene {
   createExitZone(x, y) {
     this.exitZone = this.add.zone(x * SCALE, y * SCALE, 75, 50);
     this.physics.add.existing(this.exitZone, false);
-    console.log("this.exitZone", this.exitZone);
   }
 
   create() {
@@ -117,7 +116,6 @@ export default class Game extends Phaser.Scene {
     this.windowOrientation === "Web";
 
     this.playerDead = () => {
-      debugger;
       this.scene.restart();
     };
 
@@ -232,28 +230,43 @@ export default class Game extends Phaser.Scene {
     //this.redSmile.chasePlayer(this.player);
     this.redSmile.visible = false;
 
-    this.matchThreePic.on("pointerdown", () => {
-      if (this.matchThreePic.isPlayerPostionNear(this.player)) {
+    this.matchThreePic.on("pointerup", () => {
+      if (
+        this.matchThreePic.isPlayerPostionNear(this.player) &&
+        !this.isMoveKeyDown
+      ) {
         this.playerPicInteraction(this.matchThreePic);
       }
     });
-    this.fnafPic.on("pointerdown", () => {
-      if (this.fnafPic.isPlayerPostionNear(this.player)) {
+    this.fnafPic.on("pointerup", () => {
+      if (
+        this.fnafPic.isPlayerPostionNear(this.player) &&
+        !this.isMoveKeyDown
+      ) {
         this.playerPicInteraction(this.fnafPic);
       }
     });
-    this.inTheWoodsPic.on("pointerdown", () => {
-      if (this.inTheWoodsPic.isPlayerPostionNear(this.player)) {
+    this.inTheWoodsPic.on("pointerup", () => {
+      if (
+        this.inTheWoodsPic.isPlayerPostionNear(this.player) &&
+        !this.isMoveKeyDown
+      ) {
         this.playerPicInteraction(this.inTheWoodsPic);
       }
     });
-    this.candyHadPic.on("pointerdown", () => {
-      if (this.candyHadPic.isPlayerPostionNear(this.player)) {
+    this.candyHadPic.on("pointerup", () => {
+      if (
+        this.candyHadPic.isPlayerPostionNear(this.player) &&
+        !this.isMoveKeyDown
+      ) {
         this.playerPicInteraction(this.candyHadPic);
       }
     });
-    this.cursedPic.on("pointerdown", () => {
-      if (this.cursedPic.isPlayerPostionNear(this.player)) {
+    this.cursedPic.on("pointerup", () => {
+      if (
+        this.cursedPic.isPlayerPostionNear(this.player) &&
+        !this.isMoveKeyDown
+      ) {
         this.cursedPicInteraction();
       }
     });
@@ -563,13 +576,13 @@ export default class Game extends Phaser.Scene {
   }
 
   playerPicInteraction(pic: Picture) {
+    this.player.stopMoving();
     if (pic.getLink()) {
       window.open(pic.getLink());
     }
   }
 
   update(time: number, delta: number): void {
-    this.exitZone.body.debugBodyColor = 0x00ffff;
     const touching = !this.player.body?.touching.none;
     const wasTouching = !this.player.body?.wasTouching.none;
     const spaceIsDown = this.cursors?.space.isDown;
@@ -579,6 +592,7 @@ export default class Game extends Phaser.Scene {
 
     // Player Movements
     this.player.stopMoving();
+    this.isMoveKeyDown = false;
     if (this.cursors && this.cursors.left.isDown) {
       this.player.moveLeft(delta);
     } else if (this.cursors && this.cursors.right.isDown) {
@@ -594,6 +608,7 @@ export default class Game extends Phaser.Scene {
     } else if (this.cursors && this.wasdKeys.D.isDown) {
       this.player.moveRight(delta);
     } else if (this.cursors && this.wasdKeys.W.isDown) {
+      this.isMoveKeyDown = true;
       this.player.moveUp(delta);
     } else if (this.cursors && this.wasdKeys.S.isDown) {
       this.player.moveDown(delta);
