@@ -19,7 +19,9 @@ import cabinetPNG from "../assets/aseprite/cabinet.png";
 import cabinetJSON from "../assets/aseprite/cabinet.json";
 import redSmile from "../assets/aseprite/redSmileAnimations.png";
 import redSmileJSON from "../assets/aseprite/redSmileAnimations.json";
-
+import UIContainer from "../assets/ui/Polygon1.png";
+import Button from "../assets/ui/button000.png";
+import ButtonHover from "../assets/ui/button001.png";
 export default class Preloader extends Phaser.Scene {
   constructor() {
     super("preloader");
@@ -46,9 +48,18 @@ export default class Preloader extends Phaser.Scene {
       "https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexvirtualjoystickplugin.min.js",
       true,
     );
+    this.load.image("uiBackground", UIContainer);
+    this.load.image("playAgain", Button);
+    this.load.image("playAgainHover", ButtonHover);
   }
 
   create() {
     this.scene.start("game");
+
+    this.data.set({
+      lose: "Oh no! You unleased the red smile!",
+      win: "You escaped!",
+      endGameStatus: false,
+    });
   }
 }

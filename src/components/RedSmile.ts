@@ -31,8 +31,13 @@ class RedSmile extends Phaser.Physics.Arcade.Sprite {
     this.isChasing = chasing;
   }
 
-  addCollision(player: Phaser.Types.Physics.Arcade.ArcadeColliderType) {
-    this.scene.physics.add.collider(player, this);
+  addCollision(
+    player: Phaser.Types.Physics.Arcade.ArcadeColliderType,
+    callback: () => void,
+  ) {
+    this.scene.physics.add.collider(player, this, () => {
+      callback();
+    });
   }
 
   chasePlayer(player: Phaser.Types.Physics.Arcade.ArcadeColliderType) {
