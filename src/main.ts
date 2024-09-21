@@ -2,6 +2,7 @@ import Phaser from "phaser";
 
 import Preloader from "./scenes/Preloader";
 import Game from "./scenes/Game";
+import EndGame from "./scenes/EndGame";
 
 // Responzise Game mode
 // https://stackoverflow.com/questions/51518818/how-to-make-canvas-responsive-using-phaser-3
@@ -34,7 +35,7 @@ export const config: Phaser.Types.Core.GameConfig = {
       gravity: { x: 0, y: 0 },
     },
   },
-  scene: [Preloader, Game],
+  scene: [Preloader, Game, EndGame],
 };
 
 window.onload = function () {

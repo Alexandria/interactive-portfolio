@@ -11,6 +11,7 @@ import { isMobile } from "../utils/isMobile";
 import CursedPicture from "../components/CursedPicture";
 import Cabinet from "../components/Cabinet";
 import RedSmile from "../components/RedSmile";
+import ExitZone from "../components/ExitZone";
 
 // https://newdocs.phaser.io/docs/3.80.0/Phaser.Animations.AnimationManager#create
 
@@ -32,6 +33,9 @@ export default class Game extends Phaser.Scene {
   private resizeScale: number;
   private isMobile: boolean;
   private windowOrientation: Orientation;
+  private playerDead: () => void;
+  private exitZone;
+  private redSmileEscaped = false;
 
   constructor() {
     // https://stackoverflow.com/questions/52864250/what-is-the-function-of-super-in-phaser-frameworks
@@ -94,6 +98,12 @@ export default class Game extends Phaser.Scene {
     );
   }
 
+  createExitZone(x, y) {
+    this.exitZone = this.add.zone(x * SCALE, y * SCALE, 75, 50);
+    this.physics.add.existing(this.exitZone, false);
+    console.log("this.exitZone", this.exitZone);
+  }
+
   create() {
     this.resizeScale = SCALE;
     this.isMobile = false;
@@ -105,6 +115,11 @@ export default class Game extends Phaser.Scene {
     const joyStickPosX = safeAreaX;
     const joyStickPosY = safeAreaY + 500;
     this.windowOrientation === "Web";
+
+    this.playerDead = () => {
+      debugger;
+      this.scene.restart();
+    };
 
     const worldMap = new WorldMap(
       this,
@@ -129,7 +144,6 @@ export default class Game extends Phaser.Scene {
     const cabinetPos = worldMap.getMarkerPositionByName("cabinetMarker")!;
 
     const cursedPicturePos = worldMap.getMarkerPositionByName("cursed")!;
-    console.log("cursedPicturePos", cursedPicturePos);
 
     const matchThreePosition = worldMap.getMarkerPositionByName(
       PictureNames.MatchThree,
@@ -144,6 +158,7 @@ export default class Game extends Phaser.Scene {
     const cursedPicPos = worldMap.getMarkerPositionByName(
       PictureNames.CursedPic,
     )!;
+    const exitZone = worldMap.getMarkerPositionByName("exitZone");
 
     this.wasdKeys = this.input.keyboard?.addKeys("W,S,A,D");
 
@@ -212,36 +227,33 @@ export default class Game extends Phaser.Scene {
 
     worldMap.addCollision(this.player, this.redSmile);
 
+    // this.exitZone.addOverlap(this.player);
+
     //this.redSmile.chasePlayer(this.player);
     this.redSmile.visible = false;
 
     this.matchThreePic.on("pointerdown", () => {
       if (this.matchThreePic.isPlayerPostionNear(this.player)) {
-        console.log("position is true matchthree");
         this.playerPicInteraction(this.matchThreePic);
       }
     });
     this.fnafPic.on("pointerdown", () => {
       if (this.fnafPic.isPlayerPostionNear(this.player)) {
-        console.log("position is true fnaf");
         this.playerPicInteraction(this.fnafPic);
       }
     });
     this.inTheWoodsPic.on("pointerdown", () => {
       if (this.inTheWoodsPic.isPlayerPostionNear(this.player)) {
-        console.log("position is true inthewoods");
         this.playerPicInteraction(this.inTheWoodsPic);
       }
     });
     this.candyHadPic.on("pointerdown", () => {
       if (this.candyHadPic.isPlayerPostionNear(this.player)) {
-        console.log("position is true candyHag");
         this.playerPicInteraction(this.candyHadPic);
       }
     });
     this.cursedPic.on("pointerdown", () => {
       if (this.cursedPic.isPlayerPostionNear(this.player)) {
-        console.log("position is true cursed pic");
         this.cursedPicInteraction();
       }
     });
@@ -299,7 +311,6 @@ export default class Game extends Phaser.Scene {
 
       if (this.windowOrientation === "Portrait") {
         const newScale = Math.max(this.cameras.main.height / 200, 1);
-        console.log("portraitBreakPoints", portraitBreakPoints);
         this.updateMobileControls(portraitBreakPoints, joyStickPos);
         this.updateCameraBounds(cam, -800, 0, world, newScale);
         this.setNewScale(newScale, yPosition, playerPos, worldMap);
@@ -321,7 +332,6 @@ export default class Game extends Phaser.Scene {
         const newScale = 2.5;
         this.updateMobileControls(landscapeBreakPoints, joyStickPos);
         this.updateCameraBounds(cam, -800, 0, world, newScale);
-        console.log("landscapeBreakPoints", landscapeBreakPoints);
         this.setNewScale(newScale, newYPosition, playerPos, worldMap);
 
         this.updatePhotoPositions(
@@ -340,13 +350,20 @@ export default class Game extends Phaser.Scene {
 
     this.scale.on("resize", (gameSize, baseSize, displaySize, resolution) => {
       this.cameras.resize(gameSize.width, gameSize.height);
-      console.log("resize in scene");
       resize();
     });
 
     resize();
 
     this.anims.addMix("dead", "idle", 1000);
+
+    this.createExitZone(exitZone!.x, exitZone!.y! + 25);
+
+    if (this.redSmileEscaped) {
+      this.physics.add.overlap(this.exitZone, this.player, () => {
+        this.scene.start("endGame");
+      });
+    }
   }
 
   updateCameraBounds(cam, x, y, world, newScale) {
@@ -440,7 +457,6 @@ export default class Game extends Phaser.Scene {
     };
     const yOffSet = 30;
 
-    console.log("portrait stuff");
     this.matchThreePic
       .setPosition(
         positions.matchThreePosition.x! * newScale,
@@ -531,12 +547,14 @@ export default class Game extends Phaser.Scene {
   }
 
   cursedPicInteraction() {
+    this.redSmileEscaped = true;
     // enable dresser animation opening
+    this.cursedPicture.setInteractive(false);
     this.cursedPicture.play({ key: "fall" });
     this.cabinet.play({ key: "open", delay: 1000 });
     this.time.delayedCall(4000, () => {
       this.redSmile.visible = true;
-      this.redSmile.addCollision(this.player);
+      this.redSmile.addCollision(this.player, this.playerDead);
     });
 
     this.time.delayedCall(4500, () => {
@@ -551,6 +569,7 @@ export default class Game extends Phaser.Scene {
   }
 
   update(time: number, delta: number): void {
+    this.exitZone.body.debugBodyColor = 0x00ffff;
     const touching = !this.player.body?.touching.none;
     const wasTouching = !this.player.body?.wasTouching.none;
     const spaceIsDown = this.cursors?.space.isDown;
@@ -609,8 +628,6 @@ export default class Game extends Phaser.Scene {
     }
 
     // RedSmile Movemment
-
-    console.log("velocity", this.redSmile.body?.velocity.x);
     if (this.redSmile.getIsChasing()) {
       this.redSmile.chasePlayer(this.player);
     }
@@ -618,7 +635,6 @@ export default class Game extends Phaser.Scene {
       this.redSmile.body?.velocity.x !== 0 ||
       this.redSmile.body?.velocity.x < 0
     ) {
-      console.log("Should be running!");
       this.redSmile.play("run", true);
     }
   }

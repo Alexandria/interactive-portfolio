@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="38" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="32">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="38" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="34">
  <editorsettings>
   <export target="../public/tiles/room.json" format="json"/>
  </editorsettings>
@@ -8315,7 +8315,7 @@
   <object id="21" name="matchThree" x="134.909" y="71.7727">
    <point/>
   </object>
-  <object id="26" name="player" x="438" y="96.7273">
+  <object id="26" name="exitZone" x="30.3333" y="127.061">
    <point/>
   </object>
   <object id="22" name="fnaf" x="215.273" y="71.9545">
@@ -8340,6 +8340,9 @@
    <point/>
   </object>
   <object id="29" name="light" x="472" y="23.5908">
+   <point/>
+  </object>
+  <object id="33" name="player" x="160" y="86.3333">
    <point/>
   </object>
  </objectgroup>
