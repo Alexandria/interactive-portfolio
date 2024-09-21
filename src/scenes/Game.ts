@@ -29,6 +29,7 @@ export default class Game extends Phaser.Scene {
   private cursedPic: Picture;
   private cursedPicture: CursedPicture;
   private cabinet: Cabinet;
+  private flashinglight: Light;
   private resizeScale: number;
   private isMobile: boolean;
   private windowOrientation: Orientation;
@@ -160,7 +161,7 @@ export default class Game extends Phaser.Scene {
 
     this.wasdKeys = this.input.keyboard?.addKeys("W,S,A,D");
 
-    new Light(
+    this.flashinglight = new Light(
       {
         scene: this,
         x: lightPosition.x! * SCALE,
@@ -316,6 +317,9 @@ export default class Game extends Phaser.Scene {
             inTheWoodsPos,
             candyHagDashPos,
             cursedPicPos,
+            lightPosition,
+            cabinetPos,
+            cursedPicturePos,
           },
           newScale,
           yPosition,
@@ -327,6 +331,13 @@ export default class Game extends Phaser.Scene {
         this.updateMobileControls(portraitBreakPoints, joyStickPos);
         this.updateCameraBounds(cam, -800, 0, world, newScale);
         this.setNewScale(newScale, yPosition, playerPos, worldMap);
+        // update cured picture cabinant and light
+        // const lightPosition = worldMap.getMarkerPositionByName(
+        //   PictureNames.Light,
+        // )!;
+        // const cabinetPos = worldMap.getMarkerPositionByName("cabinetMarker")!;
+
+        // const cursedPicturePos = worldMap.getMarkerPositionByName("cursed")!;
         this.updatePhotoPositions(
           {
             matchThreePosition,
@@ -334,6 +345,9 @@ export default class Game extends Phaser.Scene {
             inTheWoodsPos,
             candyHagDashPos,
             cursedPicPos,
+            lightPosition,
+            cabinetPos,
+            cursedPicturePos,
           },
           newScale,
           yPosition,
@@ -354,6 +368,9 @@ export default class Game extends Phaser.Scene {
             inTheWoodsPos,
             candyHagDashPos,
             cursedPicPos,
+            lightPosition,
+            cabinetPos,
+            cursedPicturePos,
           },
           newScale,
           newYPosition,
@@ -507,6 +524,26 @@ export default class Game extends Phaser.Scene {
       )
       .setBodySize(bodySize.width, bodySize.height)
       .setOffset(positions.cursedPicPos.x! - 200, yOffSet);
+
+    this.cabinet.setPosition(
+      positions.cabinetPos.x! * newScale,
+      positions.cabinetPos.y! * newScale + yPosition,
+    );
+    this.flashinglight.setPosition(
+      positions.lightPosition.x! * newScale,
+      positions.lightPosition.y! * newScale + yPosition,
+    );
+    this.cursedPicture.setPosition(
+      positions.cursedPicturePos.x! * newScale,
+      positions.cursedPicturePos.y! * newScale + yPosition,
+    );
+    this.redSmile.setPosition(
+      positions.cabinetPos.x! * newScale,
+      positions.cabinetPos.y! * newScale + yPosition,
+    );
+    this.cursedPicture.scale = newScale;
+    this.flashinglight.scale = newScale * 0.85;
+    this.cabinet.scale = newScale;
   }
 
   updatePhotoPositions(positions, newScale, yPosition) {
@@ -562,7 +599,8 @@ export default class Game extends Phaser.Scene {
   cursedPicInteraction() {
     this.redSmileEscaped = true;
     // enable dresser animation opening
-    this.cursedPicture.setInteractive(false);
+    // if (this.windowOrientation !== "Portrait")
+    //   this.cursedPicture.setInteractive(false);
     this.cursedPicture.play({ key: "fall" });
     this.cabinet.play({ key: "open", delay: 1000 });
     this.time.delayedCall(4000, () => {
@@ -573,6 +611,7 @@ export default class Game extends Phaser.Scene {
     this.time.delayedCall(4500, () => {
       this.redSmile.setIsChasing(true);
     });
+    // this.cursedPicture.setInteractive(true);
   }
 
   playerPicInteraction(pic: Picture) {
