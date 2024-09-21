@@ -157,7 +157,7 @@ export default class Game extends Phaser.Scene {
     const cursedPicPos = worldMap.getMarkerPositionByName(
       PictureNames.CursedPic,
     )!;
-    const exitZone = worldMap.getMarkerPositionByName("exitZone");
+    const exitZonePos = worldMap.getMarkerPositionByName("exitZone");
 
     this.wasdKeys = this.input.keyboard?.addKeys("W,S,A,D");
 
@@ -296,6 +296,8 @@ export default class Game extends Phaser.Scene {
       dir: "4dir",
     });
 
+    this.createExitZone(exitZonePos!.x, exitZonePos!.y! + 25);
+
     const resize = () => {
       this.isMobile = isMobile();
 
@@ -348,6 +350,7 @@ export default class Game extends Phaser.Scene {
             lightPosition,
             cabinetPos,
             cursedPicturePos,
+            exitZonePos,
           },
           newScale,
           yPosition,
@@ -387,13 +390,10 @@ export default class Game extends Phaser.Scene {
 
     this.anims.addMix("dead", "idle", 1000);
 
-    this.createExitZone(exitZone!.x, exitZone!.y! + 25);
-
-    if (this.redSmileEscaped) {
-      this.physics.add.overlap(this.exitZone, this.player, () => {
-        this.scene.start("endGame");
-      });
-    }
+    this.physics.add.overlap(this.exitZone, this.player, () => {
+      console.log("Overlap happened!");
+      if (this.redSmileEscaped) this.scene.start("endGame");
+    });
   }
 
   updateCameraBounds(cam, x, y, world, newScale) {
@@ -424,6 +424,7 @@ export default class Game extends Phaser.Scene {
       this.joyStick.base.radius = 40;
       this.joyStick.thumb.radius = 25;
     } else if (breakPoints.XSmallBreakPoint.meetsThreshold) {
+      console.log("XSmallBreakPoint");
       this.joyStick.x = breakPoints.XSmallBreakPoint.joyStickPos.x;
       this.joyStick.y = breakPoints.XSmallBreakPoint.joyStickPos.y;
       this.joyStick.base.radius = 40;
@@ -541,6 +542,10 @@ export default class Game extends Phaser.Scene {
       positions.cabinetPos.x! * newScale,
       positions.cabinetPos.y! * newScale + yPosition,
     );
+    this.exitZone.setPosition(
+      positions.exitZonePos.x! * newScale,
+      positions.exitZonePos.y! * newScale + yPosition,
+    );
     this.cursedPicture.scale = newScale;
     this.flashinglight.scale = newScale * 0.85;
     this.cabinet.scale = newScale;
@@ -597,10 +602,8 @@ export default class Game extends Phaser.Scene {
   }
 
   cursedPicInteraction() {
+    console.log("interaction!");
     this.redSmileEscaped = true;
-    // enable dresser animation opening
-    // if (this.windowOrientation !== "Portrait")
-    //   this.cursedPicture.setInteractive(false);
     this.cursedPicture.play({ key: "fall" });
     this.cabinet.play({ key: "open", delay: 1000 });
     this.time.delayedCall(4000, () => {
@@ -611,7 +614,7 @@ export default class Game extends Phaser.Scene {
     this.time.delayedCall(4500, () => {
       this.redSmile.setIsChasing(true);
     });
-    // this.cursedPicture.setInteractive(true);
+    console.log("another check", this.redSmileEscaped);
   }
 
   playerPicInteraction(pic: Picture) {
