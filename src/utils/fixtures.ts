@@ -47,7 +47,7 @@ export const portraitBreakPoints: BreakPoints = {
   XSmallBreakPoint: {
     meetsThreshold: XSmallBreakPoint,
     joyStickPos: {
-      x: window.innerWidth / 3 + 500,
+      x: window.innerWidth / 3 + 650,
       y: 620,
     },
   },
