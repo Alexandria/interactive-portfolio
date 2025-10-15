@@ -138,6 +138,23 @@ export default class Game extends Phaser.Scene {
     // worldMap.worldDebug();
 
     this.cursors = this.input.keyboard?.createCursorKeys();
+    this.add.text(0, 90, "Hello! Welcome to my gallery", {
+      fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif',
+    });
+    this.add.text(0, 540, "Use the arrow keys to move", {
+      fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif',
+    });
+    this.add.text(
+      0,
+      570,
+      "Stand in front of a image and click on the sign with your mouse to explore my work",
+      {
+        fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif',
+      },
+    );
+    this.add.text(0, 600, "Be Careful! Not everything is as it seems...", {
+      fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif',
+    });
 
     const lightPosition = worldMap.getMarkerPositionByName(PictureNames.Light)!;
     const cabinetPos = worldMap.getMarkerPositionByName("cabinetMarker")!;

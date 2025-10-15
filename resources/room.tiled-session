@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "room.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
     ],
     "exportAsImage.useCurrentScale": false,
@@ -96,10 +96,10 @@
         },
         "room.tmx": {
             "scale": 3,
-            "selectedLayer": 4,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 303.99999999999994,
-                "y": 72.16666666666666
+                "x": 28.333333333333314,
+                "y": 83.83333333333331
             }
         },
         "room.tmx#basic-floor": {
