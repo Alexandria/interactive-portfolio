@@ -147,7 +147,7 @@ export default class Game extends Phaser.Scene {
     this.add.text(
       0,
       570,
-      "Stand in front of a image and click on the sign with your mouse to explore my work",
+      "Stand in front of an image and click on the sign with your mouse to explore my work",
       {
         fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif',
       },
